@@ -73,82 +73,64 @@ document.addEventListener('DOMContentLoaded', function() {
         eyeOffIcon.classList.toggle('hidden');
     });
 
-    // Mock data for testing
-    const mockUsers = {
-        student: {
-            id: '00001',
-            password: '123123'
-        },
-        teacher: {
-            email: 'teacher@gmail.com',
-            password: 'teacher@gmail.com'
-        }
-    };
-
     // Form submission
     const loginForm = document.getElementById('loginForm');
+    const loginBtn = loginForm.querySelector('.login-btn');
     
-    loginForm.addEventListener('submit', function(e) {
+    loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         clearAllErrors();
         
         const role = roleInput.value;
         const password = passwordInput.value;
-        let hasError = false;
+        
+        // Prepare request data
+        const requestData = {
+            role: role,
+            password: password
+        };
         
         if (role === 'student') {
-            const studentId = studentIdInput.value.trim();
-            
-            // Validate Student ID
-            if (!studentId) {
-                showError(studentIdInput, studentIdError, 'Student ID is required');
-                hasError = true;
-            }
-            
-            // Validate Password
-            if (!password) {
-                showError(passwordInput, passwordError, 'Password is required');
-                hasError = true;
-            }
-            
-            if (hasError) return;
-            
-            // Check mock student credentials - show specific errors
-            if (studentId !== mockUsers.student.id) {
-                showError(studentIdInput, studentIdError, 'Invalid Student ID');
-            } else if (password !== mockUsers.student.password) {
-                showError(passwordInput, passwordError, 'Invalid Password');
-            } else {
-                window.location.href = 'users/student/pages/dashboard.php';
-            }
+            requestData.student_id = studentIdInput.value.trim();
         } else {
-            const email = emailInput.value.trim();
+            requestData.email = emailInput.value.trim();
+        }
+        
+        // Disable button during request
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Logging in...';
+        
+        try {
+            const response = await fetch('../api/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            });
             
-            // Validate Email
-            if (!email) {
-                showError(emailInput, emailError, 'Email is required');
-                hasError = true;
-            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                showError(emailInput, emailError, 'Please enter a valid email address');
-                hasError = true;
-            }
+            const data = await response.json();
             
-            // Validate Password
-            if (!password) {
-                showError(passwordInput, passwordError, 'Password is required');
-                hasError = true;
-            }
-            
-            if (hasError) return;
-            
-            // Check mock teacher credentials - show specific errors
-            if (email !== mockUsers.teacher.email) {
-                showError(emailInput, emailError, 'Invalid Email');
-            } else if (password !== mockUsers.teacher.password) {
-                showError(passwordInput, passwordError, 'Invalid Password');
+            if (data.success) {
+                window.location.href = data.redirect;
             } else {
-                window.location.href = 'users/teacher/pages/dashboard.php';
+                // Show specific errors from server
+                if (data.errors.student_id) {
+                    showError(studentIdInput, studentIdError, data.errors.student_id);
+                }
+                if (data.errors.email) {
+                    showError(emailInput, emailError, data.errors.email);
+                }
+                if (data.errors.password) {
+                    showError(passwordInput, passwordError, data.errors.password);
+                }
             }
+        } catch (error) {
+            console.error('Login error:', error);
+            showError(passwordInput, passwordError, 'Connection error. Please try again.');
+        } finally {
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Log in';
         }
     });
 });
