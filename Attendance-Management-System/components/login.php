@@ -31,6 +31,7 @@
                     placeholder="Enter Your Student ID" 
                     autocomplete="username"
                 >
+                <span class="error-message" id="studentIdError"></span>
             </div>
 
             <!-- Email field (shown for teachers) -->
@@ -43,6 +44,7 @@
                     placeholder="Enter Your Email Address" 
                     autocomplete="email"
                 >
+                <span class="error-message" id="emailError"></span>
             </div>
 
                 <div class="form-group">
@@ -70,6 +72,7 @@
                             </svg>
                         </button>
                     </div>
+                    <span class="error-message" id="passwordError"></span>
                 </div>
 
                 <button type="submit" class="login-btn">Log in</button>
