@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Laravel backend API URL - adjust this based on your setup
-    // If using Laragon, Laravel typically runs at http://localhost:8000 or http://backend.test
+    // Laravel backend API URL
     const API_BASE_URL = 'http://localhost:8000';
     
     // Role tab switching
@@ -88,25 +87,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const role = roleInput.value;
         const password = passwordInput.value;
         
-        // Prepare form data for Laravel
-        const formData = new FormData();
-        formData.append('login_type', role);
-        formData.append('password', password);
-        
+        // Validate inputs
         if (role === 'student') {
             const studentId = studentIdInput.value.trim();
             if (!studentId) {
                 showError(studentIdInput, studentIdError, 'Student ID is required');
                 return;
             }
-            formData.append('student_id', studentId);
         } else {
             const email = emailInput.value.trim();
             if (!email) {
                 showError(emailInput, emailError, 'Email is required');
                 return;
             }
-            formData.append('email', email);
         }
         
         if (!password) {
@@ -119,50 +112,57 @@ document.addEventListener('DOMContentLoaded', function() {
         loginBtn.textContent = 'Logging in...';
         
         try {
-            // First get CSRF token from Laravel
-            await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, {
-                credentials: 'include'
-            });
+            // Prepare JSON data
+            const requestData = {
+                login_type: role,
+                password: password
+            };
             
-            const response = await fetch(`${API_BASE_URL}/login`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: formData
-            });
-            
-            if (response.redirected) {
-                // Laravel redirected after successful login
-                window.location.href = response.url;
-                return;
+            if (role === 'student') {
+                requestData.student_id = studentIdInput.value.trim();
+            } else {
+                requestData.email = emailInput.value.trim();
             }
+            
+            const response = await fetch(`${API_BASE_URL}/api/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            });
             
             const data = await response.json();
             
             if (response.ok && data.success) {
-                // Redirect based on role
+                // Store token if provided
+                if (data.token) {
+                    localStorage.setItem('auth_token', data.token);
+                    localStorage.setItem('user_type', role);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                }
+                
+                // Redirect to dashboard
                 if (role === 'student') {
-                    window.location.href = `${API_BASE_URL}/student/dashboard`;
+                    window.location.href = 'users/student/pages/student_dashboard.php';
                 } else {
-                    window.location.href = `${API_BASE_URL}/teacher/dashboard`;
+                    window.location.href = 'users/teacher/pages/teacher_dashboard.php';
                 }
             } else {
                 // Show validation errors
                 if (data.errors) {
                     if (data.errors.student_id) {
-                        showError(studentIdInput, studentIdError, data.errors.student_id[0]);
+                        showError(studentIdInput, studentIdError, Array.isArray(data.errors.student_id) ? data.errors.student_id[0] : data.errors.student_id);
                     }
                     if (data.errors.email) {
-                        showError(emailInput, emailError, data.errors.email[0]);
+                        showError(emailInput, emailError, Array.isArray(data.errors.email) ? data.errors.email[0] : data.errors.email);
                     }
                     if (data.errors.password) {
-                        showError(passwordInput, passwordError, data.errors.password[0]);
+                        showError(passwordInput, passwordError, Array.isArray(data.errors.password) ? data.errors.password[0] : data.errors.password);
                     }
                     if (data.errors.login) {
-                        showError(passwordInput, passwordError, data.errors.login[0]);
+                        showError(passwordInput, passwordError, Array.isArray(data.errors.login) ? data.errors.login[0] : data.errors.login);
                     }
                 } else if (data.message) {
                     showError(passwordInput, passwordError, data.message);
