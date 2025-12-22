@@ -108,10 +108,7 @@ svg {
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 1px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-color);
 }
 
 .sidebar-close {
@@ -236,7 +233,7 @@ svg {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     color: var(--text-white);
     display: flex;
     align-items: center;
@@ -344,19 +341,19 @@ svg {
 }
 
 .summary-icon.total {
-    background: linear-gradient(135deg, var(--secondary-color), #d97706);
+    background: var(--secondary-color);
 }
 
 .summary-icon.present {
-    background: linear-gradient(135deg, var(--primary-color), #65a30d);
+    background: var(--primary-color);
 }
 
 .summary-icon.absent {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background: #ef4444;
 }
 
 .summary-icon.late {
-    background: linear-gradient(135deg, var(--accent-color), #f97316);
+    background: var(--accent-color);
 }
 
 .summary-info {
@@ -390,7 +387,7 @@ svg {
     justify-content: space-between;
     padding: 20px 24px;
     border-bottom: 1px solid var(--border-color);
-    background: linear-gradient(135deg, rgba(132, 204, 22, 0.05), rgba(245, 158, 11, 0.05));
+    background: rgba(132, 204, 22, 0.05);
 }
 
 .card-title {

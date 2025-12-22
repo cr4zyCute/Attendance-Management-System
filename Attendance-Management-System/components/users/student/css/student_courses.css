@@ -102,10 +102,7 @@ svg {
 .logo-text {
     font-size: 24px;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-color);
 }
 
 .sidebar-close {
@@ -219,7 +216,7 @@ svg {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     color: var(--text-white);
     display: flex;
     align-items: center;
@@ -319,7 +316,7 @@ svg {
     gap: 30px;
     margin-bottom: 25px;
     padding: 20px 25px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     border-radius: 12px;
     color: var(--text-white);
 }
@@ -370,7 +367,7 @@ svg {
     justify-content: space-between;
     align-items: flex-start;
     padding: 20px;
-    background: linear-gradient(135deg, rgba(132, 204, 22, 0.08), rgba(245, 158, 11, 0.08));
+    background: rgba(132, 204, 22, 0.08);
 }
 
 .course-icon {
@@ -384,27 +381,27 @@ svg {
 }
 
 .course-icon.math {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: #3b82f6;
 }
 
 .course-icon.physics {
-    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    background: #8b5cf6;
 }
 
 .course-icon.cs {
-    background: linear-gradient(135deg, var(--primary-color), #65a30d);
+    background: var(--primary-color);
 }
 
 .course-icon.english {
-    background: linear-gradient(135deg, var(--secondary-color), #d97706);
+    background: var(--secondary-color);
 }
 
 .course-icon.chemistry {
-    background: linear-gradient(135deg, var(--accent-color), #f97316);
+    background: var(--accent-color);
 }
 
 .course-icon.history {
-    background: linear-gradient(135deg, #6b7280, #4b5563);
+    background: #6b7280;
 }
 
 .course-status {
@@ -495,16 +492,16 @@ svg {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     border-radius: 3px;
 }
 
 .progress-fill.high {
-    background: linear-gradient(90deg, var(--success-color), #059669);
+    background: var(--success-color);
 }
 
 .progress-fill.warning {
-    background: linear-gradient(90deg, var(--accent-color), #f97316);
+    background: var(--accent-color);
 }
 
 
@@ -682,7 +679,7 @@ svg {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     border: none;
     color: var(--text-white);
     cursor: pointer;

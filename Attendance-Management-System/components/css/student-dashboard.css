@@ -244,7 +244,7 @@ svg {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     color: var(--text-white);
     display: flex;
     align-items: center;
@@ -316,19 +316,19 @@ svg {
 }
 
 .stat-icon.attendance {
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: #10b981;
 }
 
 .stat-icon.courses {
-    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    background: #6366f1;
 }
 
 .stat-icon.present {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: #3b82f6;
 }
 
 .stat-icon.absent {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background: #ef4444;
 }
 
 .stat-info {
@@ -513,17 +513,17 @@ svg {
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);
     border-radius: 4px;
     transition: width 0.5s ease;
 }
 
 .progress-fill.high {
-    background: linear-gradient(90deg, var(--success-color), #059669);
+    background: var(--success-color);
 }
 
 .progress-fill.warning {
-    background: linear-gradient(90deg, var(--warning-color), #d97706);
+    background: var(--warning-color);
 }
 
 /* Notifications */
