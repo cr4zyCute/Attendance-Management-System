@@ -1,5 +1,31 @@
 // Student Dashboard JavaScript
 
+// Laravel backend API URL - adjust based on your setup
+const API_BASE_URL = 'http://localhost:8000';
+
+// Logout function
+async function logout(e) {
+    e.preventDefault();
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/logout`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+        
+        // Redirect to login page
+        window.location.href = '../../../../components/login.php';
+    } catch (error) {
+        console.error('Logout error:', error);
+        // Still redirect to login on error
+        window.location.href = '../../../../components/login.php';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.querySelector('.sidebar');
     const sidebarOverlay = document.querySelector('.sidebar-overlay');
