@@ -264,7 +264,159 @@ svg {
     padding: 30px;
 }
 
-/* Filters Section */
+/* Search & Filter Bar */
+.search-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 50px 14px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    font-size: 15px;
+    color: var(--text-primary);
+    background: var(--card-bg);
+    transition: var(--transition);
+}
+
+.search-input::placeholder {
+    color: var(--text-light);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.15);
+}
+
+.search-icon {
+    position: absolute;
+    right: 18px;
+    color: var(--text-light);
+    pointer-events: none;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.filter-icon-btn {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--card-bg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    color: var(--text-primary);
+}
+
+.filter-icon-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.filter-icon-btn.active {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--text-white);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 200px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    padding: 12px 16px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+}
+
+.dropdown-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-item:hover {
+    background: var(--primary-light);
+    color: var(--primary-hover);
+}
+
+.dropdown-item.active {
+    background: var(--primary-color);
+    color: var(--text-white);
+}
+
+.dropdown-item.active:hover {
+    background: var(--primary-hover);
+    color: var(--text-white);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 8px 0;
+}
+
+.dropdown-section {
+    padding: 4px 0;
+}
+
+.filter-dropdown {
+    min-width: 220px;
+}
+
+.date-dropdown {
+    min-width: 180px;
+}
+
+/* Filters Section - Legacy (keeping for compatibility) */
 .filters-section {
     display: flex;
     gap: 20px;
@@ -664,6 +816,25 @@ svg {
         min-width: 100%;
     }
 
+    /* Search Filter Bar Responsive */
+    .search-filter-bar {
+        gap: 10px;
+    }
+
+    .search-box {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .filter-actions {
+        flex-shrink: 0;
+    }
+
+    .filter-icon-btn {
+        width: 44px;
+        height: 44px;
+    }
+
     .attendance-table th,
     .attendance-table td {
         padding: 12px 16px;
@@ -678,6 +849,54 @@ svg {
 @media (max-width: 576px) {
     .attendance-content {
         padding: 15px;
+    }
+
+    /* Search Filter Bar Small Screen */
+    .search-filter-bar {
+        gap: 8px;
+    }
+
+    .search-box {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .search-input {
+        padding: 10px 40px 10px 14px;
+        font-size: 14px;
+    }
+
+    .search-icon {
+        right: 14px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .filter-actions {
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .filter-icon-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .filter-icon-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .dropdown-menu {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        min-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 60vh;
+        overflow-y: auto;
     }
 
     .summary-grid {
@@ -770,6 +989,7 @@ svg {
     .menu-toggle,
     .sidebar-overlay,
     .filters-section,
+    .search-filter-bar,
     .pagination,
     .card-actions {
         display: none !important;

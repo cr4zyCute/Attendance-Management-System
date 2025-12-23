@@ -89,37 +89,61 @@
 
         <!-- Attendance Content -->
         <div class="attendance-content">
-            <!-- Filters Section -->
-            <div class="filters-section">
-                <div class="filter-group">
-                    <label for="courseFilter">Course</label>
-                    <select id="courseFilter" class="filter-select">
-                        <option value="">All Courses</option>
-                        <option value="math">Mathematics</option>
-                        <option value="physics">Physics</option>
-                        <option value="cs">Computer Science</option>
-                        <option value="english">English</option>
-                        <option value="chemistry">Chemistry</option>
-                    </select>
+            <!-- Search & Filter Bar -->
+            <div class="search-filter-bar">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search courses, teachers...">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
                 </div>
-                <div class="filter-group">
-                    <label for="monthFilter">Month</label>
-                    <select id="monthFilter" class="filter-select">
-                        <option value="">All Months</option>
-                        <option value="12" selected>December 2025</option>
-                        <option value="11">November 2025</option>
-                        <option value="10">October 2025</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="statusFilter">Status</label>
-                    <select id="statusFilter" class="filter-select">
-                        <option value="">All Status</option>
-                        <option value="present">Present</option>
-                        <option value="absent">Absent</option>
-                        <option value="late">Late</option>
-                        <option value="excused">Excused</option>
-                    </select>
+                <div class="filter-actions">
+                    <button class="filter-icon-btn" id="datePickerBtn" title="Select Date">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                            <rect x="7" y="14" width="3" height="3"></rect>
+                            <rect x="14" y="14" width="3" height="3"></rect>
+                        </svg>
+                        <!-- Date Picker Dropdown -->
+                        <div class="dropdown-menu date-dropdown" id="dateDropdown">
+                            <div class="dropdown-header">Select Month</div>
+                            <div class="dropdown-item active" data-value="">All Months</div>
+                            <div class="dropdown-item" data-value="12">December 2025</div>
+                            <div class="dropdown-item" data-value="11">November 2025</div>
+                            <div class="dropdown-item" data-value="10">October 2025</div>
+                            <div class="dropdown-item" data-value="9">September 2025</div>
+                        </div>
+                    </button>
+                    <button class="filter-icon-btn" id="filterBtn" title="Filter">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        <!-- Filter Dropdown -->
+                        <div class="dropdown-menu filter-dropdown" id="filterDropdown">
+                            <div class="dropdown-section">
+                                <div class="dropdown-header">Status</div>
+                                <div class="dropdown-item active" data-filter="status" data-value="">All Status</div>
+                                <div class="dropdown-item" data-filter="status" data-value="present">Present</div>
+                                <div class="dropdown-item" data-filter="status" data-value="absent">Absent</div>
+                                <div class="dropdown-item" data-filter="status" data-value="late">Late</div>
+                                <div class="dropdown-item" data-filter="status" data-value="excused">Excused</div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-section">
+                                <div class="dropdown-header">Course</div>
+                                <div class="dropdown-item active" data-filter="course" data-value="">All Courses</div>
+                                <div class="dropdown-item" data-filter="course" data-value="math">Mathematics</div>
+                                <div class="dropdown-item" data-filter="course" data-value="physics">Physics</div>
+                                <div class="dropdown-item" data-filter="course" data-value="cs">Computer Science</div>
+                                <div class="dropdown-item" data-filter="course" data-value="english">English</div>
+                                <div class="dropdown-item" data-filter="course" data-value="chemistry">Chemistry</div>
+                            </div>
+                        </div>
+                    </button>
                 </div>
             </div>
 
