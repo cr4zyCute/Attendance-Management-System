@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Attendance - Attendance Management System</title>
-    <link rel="stylesheet" href="../css/student_attendance.css">
+    <link rel="stylesheet" href="../css/teacher_attendance.css">
 </head>
 <body>
     <!-- Sidebar Overlay for Mobile -->
@@ -28,7 +28,7 @@
         </div>
         
         <nav class="sidebar-nav">
-            <a href="student_dashboard.php" class="nav-item">
+            <a href="teacher_dashboard.php" class="nav-item">
                 <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="3" width="7" height="7"></rect>
                     <rect x="14" y="3" width="7" height="7"></rect>
@@ -37,19 +37,19 @@
                 </svg>
                 <span>Dashboard</span>
             </a>
-            <a href="student_attendance.php" class="nav-item active">
+            <a href="teacher_attendance.php" class="nav-item active">
                 <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
                 <span>Attendance</span>
             </a>
-            <a href="student_courses.php" class="nav-item">
+            <a href="teacher_courses.php" class="nav-item">
                 <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                 </svg>
                 <span>Courses</span>
             </a>
-            <a href="student_reports.php" class="nav-item">
+            <a href="#" class="nav-item">
                 <svg class="nav-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
@@ -81,10 +81,10 @@
             </div>
             <div class="header-right">
                 <div class="user-profile">
-                    <div class="user-avatar">JS</div>
+                    <div class="user-avatar">JT</div>
                     <div class="user-info">
-                        <span class="user-name">John Student</span>
-                        <span class="user-role">Student</span>
+                        <span class="user-name">John Teacher</span>
+                        <span class="user-role">Teacher</span>
                     </div>
                 </div>
             </div>
@@ -143,7 +143,7 @@
             <!-- Search & Filter Bar -->
             <div class="search-filter-bar">
                 <div class="search-box">
-                    <input type="text" class="search-input" placeholder="Search courses, teachers...">
+                    <input type="text" class="search-input" placeholder="Search courses, students...">
                     <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="M21 21l-4.35-4.35"></path>
@@ -159,7 +159,6 @@
                             <rect x="7" y="14" width="3" height="3"></rect>
                             <rect x="14" y="14" width="3" height="3"></rect>
                         </svg>
-                        <!-- Date Picker Dropdown -->
                         <div class="dropdown-menu date-dropdown" id="dateDropdown">
                             <div class="dropdown-header">Select Month</div>
                             <div class="dropdown-item active" data-value="">All Months</div>
@@ -173,7 +172,6 @@
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                         </svg>
-                        <!-- Filter Dropdown with Tabs -->
                         <div class="dropdown-menu filter-dropdown" id="filterDropdown">
                             <div class="filter-tabs">
                                 <button class="filter-tab active" data-tab="status">Status</button>
@@ -220,7 +218,7 @@
                                     <th>Date</th>
                                     <th>Course</th>
                                     <th>Time</th>
-                                    <th>Teacher</th>
+                                    <th>Student</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -239,7 +237,7 @@
                                         </div>
                                     </td>
                                     <td>08:00 AM</td>
-                                    <td>Mr. Johnson</td>
+                                    <td>Jane Student</td>
                                     <td><span class="status-badge present">Present</span></td>
                                 </tr>
                                 <tr>
@@ -256,7 +254,7 @@
                                         </div>
                                     </td>
                                     <td>10:00 AM</td>
-                                    <td>Dr. Smith</td>
+                                    <td>Mark Student</td>
                                     <td><span class="status-badge present">Present</span></td>
                                 </tr>
                                 <tr>
@@ -273,84 +271,16 @@
                                         </div>
                                     </td>
                                     <td>01:00 PM</td>
-                                    <td>Ms. Davis</td>
+                                    <td>Paul Student</td>
                                     <td><span class="status-badge late">Late</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="date-cell">
-                                            <span class="date-day">20</span>
-                                            <span class="date-month">Dec</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="course-cell">
-                                            <span class="course-name">English</span>
-                                            <span class="course-code">ENG102</span>
-                                        </div>
-                                    </td>
-                                    <td>03:00 PM</td>
-                                    <td>Mrs. Wilson</td>
-                                    <td><span class="status-badge present">Present</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="date-cell">
-                                            <span class="date-day">19</span>
-                                            <span class="date-month">Dec</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="course-cell">
-                                            <span class="course-name">Chemistry</span>
-                                            <span class="course-code">CHEM201</span>
-                                        </div>
-                                    </td>
-                                    <td>09:00 AM</td>
-                                    <td>Dr. Brown</td>
-                                    <td><span class="status-badge absent">Absent</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="date-cell">
-                                            <span class="date-day">19</span>
-                                            <span class="date-month">Dec</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="course-cell">
-                                            <span class="course-name">Mathematics</span>
-                                            <span class="course-code">MATH101</span>
-                                        </div>
-                                    </td>
-                                    <td>11:00 AM</td>
-                                    <td>Mr. Johnson</td>
-                                    <td><span class="status-badge excused">Excused</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="date-cell">
-                                            <span class="date-day">18</span>
-                                            <span class="date-month">Dec</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="course-cell">
-                                            <span class="course-name">Physics</span>
-                                            <span class="course-code">PHY201</span>
-                                        </div>
-                                    </td>
-                                    <td>10:00 AM</td>
-                                    <td>Dr. Smith</td>
-                                    <td><span class="status-badge present">Present</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <!-- Pagination -->
                     <div class="pagination">
-                        <span class="pagination-info">Showing 1-7 of 50 records</span>
+                        <span class="pagination-info">Showing 1-3 of 50 records</span>
                         <div class="pagination-controls">
                             <button class="pagination-btn" disabled>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -374,6 +304,6 @@
         </div>
     </main>
 
-    <script src="../js/student-dashboard.js"></script>
+    <script src="../js/teacher-dashboard.js"></script>
 </body>
 </html>
