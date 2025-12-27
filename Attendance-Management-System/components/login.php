@@ -50,7 +50,6 @@
                 <div class="form-group">
                     <div class="password-header">
                         <label for="password">Password</label>
-                        <a href="forgot-password.php" class="forgot-link">Forgot Your Password?</a>
                     </div>
                     <div class="password-wrapper">
                         <input 
@@ -71,6 +70,7 @@
                                 <line x1="1" y1="1" x2="23" y2="23"></line>
                             </svg>
                         </button>
+                        <a href="forgot-password.php" class="forgot-link">Forgot Your Password?</a>
                     </div>
                     <span class="error-message" id="passwordError"></span>
                 </div>
