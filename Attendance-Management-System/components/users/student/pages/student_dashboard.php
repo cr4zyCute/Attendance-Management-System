@@ -7,7 +7,8 @@ $pageTitle = 'Dashboard';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard - Attendance Management System</title>
-    <link rel="stylesheet" href="../css/student_dashboard.css">
+    <link rel="stylesheet" href="./css/student_dashboard.css">
+    <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
     <?php include '../sidebar.php'; ?>

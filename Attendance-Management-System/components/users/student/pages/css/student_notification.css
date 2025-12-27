@@ -1,0 +1,572 @@
+/* Student Notification Page - Split View Layout */
+
+.notifications-container {
+    display: flex;
+    height: calc(100vh - var(--header-height));
+    background: var(--bg-color);
+}
+
+/* Left Panel - Notification List */
+.notifications-list-panel {
+    width: 380px;
+    min-width: 320px;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.header-info h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.notification-count {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.header-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.icon-btn:hover {
+    background: var(--primary-light);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Filter Dropdown */
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    min-width: 140px;
+    display: none;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.filter-menu.show {
+    display: block;
+}
+
+.filter-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.filter-item:hover {
+    background: var(--bg-color);
+}
+
+.filter-item.active {
+    background: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Notification List */
+.notifications-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.notification-list-item {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.notification-list-item:hover {
+    background: var(--bg-color);
+}
+
+.notification-list-item.selected {
+    background: var(--primary-light);
+    border-left: 3px solid var(--primary-color);
+}
+
+.notification-list-item.unread {
+    background: rgba(132, 204, 22, 0.05);
+}
+
+.notification-list-item.unread .item-title {
+    font-weight: 600;
+}
+
+.item-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.item-indicator.info {
+    background: var(--info-color);
+}
+
+.item-indicator.success {
+    background: var(--primary-color);
+}
+
+.item-indicator.warning {
+    background: var(--secondary-color);
+}
+
+.item-indicator.danger {
+    background: var(--danger-color);
+}
+
+.item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    gap: 8px;
+}
+
+.item-title {
+    font-size: 14px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-time {
+    font-size: 12px;
+    color: var(--text-light);
+    flex-shrink: 0;
+}
+
+.item-preview {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Empty List */
+.empty-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.empty-list svg {
+    margin-bottom: 12px;
+}
+
+.empty-list p {
+    font-size: 14px;
+}
+
+/* Right Panel - Preview */
+.notification-preview-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    height: 100%;
+}
+
+/* Preview Content */
+.preview-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+/* Back Button - Hidden on desktop */
+.back-btn {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.back-btn:hover {
+    color: var(--primary-color);
+}
+
+.back-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.preview-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.preview-icon.info {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--info-color);
+}
+
+.preview-icon.success {
+    background: rgba(132, 204, 22, 0.15);
+    color: var(--primary-color);
+}
+
+.preview-icon.warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--secondary-color);
+}
+
+.preview-icon.danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger-color);
+}
+
+.preview-meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.preview-type {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+}
+
+.preview-time {
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.preview-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.preview-body {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.preview-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    word-wrap: break-word;
+}
+
+.preview-message {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    word-wrap: break-word;
+}
+
+.preview-footer {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+}
+
+.btn-outline {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary-light);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+/* Tablet */
+@media (max-width: 992px) {
+    .notifications-list-panel {
+        width: 320px;
+        min-width: 280px;
+    }
+
+    .preview-title {
+        font-size: 20px;
+    }
+}
+
+/* Mobile - Full screen switching */
+@media (max-width: 768px) {
+    .notifications-container {
+        position: relative;
+        height: calc(100vh - 60px);
+        overflow: hidden;
+    }
+
+    /* List panel - full screen */
+    .notifications-list-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        min-width: 100%;
+        z-index: 1;
+        border-right: none;
+    }
+
+    /* Preview panel - full screen overlay, hidden by default */
+    .notification-preview-panel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 10;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+
+    /* Show preview when active */
+    .notifications-container.preview-active .notification-preview-panel {
+        transform: translateX(0);
+    }
+
+    /* Show back button */
+    .back-btn {
+        display: flex;
+    }
+
+    .panel-header {
+        padding: 16px;
+    }
+
+    .header-info h2 {
+        font-size: 18px;
+    }
+
+    .notification-list-item {
+        padding: 14px 16px;
+    }
+
+    .preview-header {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .preview-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .preview-body {
+        padding: 20px 16px;
+    }
+
+    .preview-title {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .preview-message {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .preview-footer {
+        padding: 16px;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .notifications-container {
+        height: calc(100vh - 60px);
+    }
+
+    .panel-header {
+        padding: 12px 14px;
+    }
+
+    .header-info h2 {
+        font-size: 16px;
+    }
+
+    .notification-count {
+        font-size: 12px;
+    }
+
+    .icon-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .notification-list-item {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .item-indicator {
+        width: 6px;
+        height: 6px;
+        margin-top: 5px;
+    }
+
+    .item-title {
+        font-size: 13px;
+    }
+
+    .item-time {
+        font-size: 11px;
+    }
+
+    .item-preview {
+        font-size: 12px;
+    }
+
+    .preview-header {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .back-btn {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .preview-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .preview-type {
+        font-size: 11px;
+    }
+
+    .preview-time {
+        font-size: 12px;
+    }
+
+    .preview-body {
+        padding: 16px 14px;
+    }
+
+    .preview-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .preview-message {
+        font-size: 13px;
+    }
+
+    .preview-footer {
+        padding: 14px;
+    }
+
+    .btn {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}

@@ -36,6 +36,13 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
             </svg>
             <span>Dashboard</span>
         </a>
+                <a href="student_notification.php" class="nav-item <?php echo ($currentPage === 'student_notification') ? 'active' : ''; ?>">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"></path>
+                <path d="M13 21a2 2 0 01-4 0"></path>
+            </svg>
+            <span>Notifications</span>
+        </a>
         <a href="student_attendance.php" class="nav-item <?php echo ($currentPage === 'student_attendance') ? 'active' : ''; ?>">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -54,13 +61,14 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
             </svg>
             <span>Reports</span>
         </a>
-        <a href="student_notification.php" class="nav-item <?php echo ($currentPage === 'student_notification') ? 'active' : ''; ?>">
+        <a href="student_profile.php" class="nav-item <?php echo ($currentPage === 'student_profile') ? 'active' : ''; ?>">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5"></path>
-                <path d="M13 21a2 2 0 01-4 0"></path>
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
             </svg>
-            <span>Notifications</span>
+            <span>Profile</span>
         </a>
+
     </nav>
     
     <div class="sidebar-footer">

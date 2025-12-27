@@ -1,17 +1,65 @@
 /**
  * Student Notification Page JavaScript
+ * Static UI version - no backend required
  */
 
 const NotificationPage = {
-    apiBaseUrl: typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : 'http://192.168.1.9:8000',
-    currentPage: 1,
-    totalPages: 1,
     currentFilter: 'all',
-    notifications: [],
+    selectedId: null,
+    
+    // Static notification data for UI
+    notifications: [
+        {
+            id: 1,
+            type: 'info',
+            title: 'Attendance Alert',
+            message: 'Your attendance for Physics dropped below 85%. Please ensure regular attendance to maintain your academic standing.',
+            time: '2 hours ago',
+            read: false
+        },
+        {
+            id: 2,
+            type: 'success',
+            title: 'Attendance Marked',
+            message: 'Your attendance has been successfully marked for Mathematics class.',
+            time: 'Today, 8:05 AM',
+            read: true
+        },
+        {
+            id: 3,
+            type: 'warning',
+            title: 'Attendance Reminder',
+            message: 'Your English class attendance is at 78%. Consider attending more classes to improve your attendance percentage.',
+            time: 'Yesterday',
+            read: false
+        },
+        {
+            id: 4,
+            type: 'success',
+            title: 'Course Enrolled',
+            message: 'You have been successfully enrolled in Computer Science 301. Check your schedule for class timings.',
+            time: '2 days ago',
+            read: true
+        },
+        {
+            id: 5,
+            type: 'info',
+            title: 'Schedule Update',
+            message: 'Your Chemistry class has been rescheduled to 2:00 PM on Wednesdays. Please update your calendar accordingly.',
+            time: '3 days ago',
+            read: false
+        }
+    ],
 
-    async init() {
+    init() {
         this.bindEvents();
-        await this.fetchNotifications();
+        this.renderNotifications();
+        this.updateCount();
+        
+        // Auto-select first notification on desktop only
+        if (!this.isMobile() && this.notifications.length > 0) {
+            this.selectNotification(this.notifications[0].id);
+        }
     },
 
     bindEvents() {
@@ -38,194 +86,154 @@ const NotificationPage = {
             filterMenu.querySelectorAll('.filter-item').forEach(item => {
                 item.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const filter = item.dataset.filter;
-                    this.setFilter(filter);
+                    this.setFilter(item.dataset.filter);
                     filterMenu.classList.remove('show');
                 });
             });
         }
 
-        // Pagination
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => this.goToPage(this.currentPage - 1));
+        // Back button for mobile
+        const backBtn = document.getElementById('backBtn');
+        if (backBtn) {
+            backBtn.addEventListener('click', () => this.goBack());
         }
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => this.goToPage(this.currentPage + 1));
-        }
-    },
 
-    async fetchNotifications() {
-        this.showLoading();
-
-        try {
-            const response = await fetch(`${this.apiBaseUrl}/api/notifications?page=${this.currentPage}`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
+        // Preview panel buttons
+        const deleteBtn = document.getElementById('deleteBtn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', () => {
+                if (this.selectedId) this.deleteNotification(this.selectedId);
             });
-
-            if (!response.ok) throw new Error('Failed to fetch notifications');
-
-            const result = await response.json();
-            this.notifications = result.data.data || [];
-            this.currentPage = result.data.current_page || 1;
-            this.totalPages = result.data.last_page || 1;
-            
-            this.renderNotifications();
-            this.updatePagination();
-            this.updateCount(result.data.total || 0);
-        } catch (error) {
-            console.error('Error fetching notifications:', error);
-            this.renderFallbackNotifications();
-        }
-    },
-
-    showLoading() {
-        const list = document.getElementById('notificationsListPage');
-        const emptyState = document.getElementById('emptyState');
-        const pagination = document.getElementById('pagination');
-
-        if (list) {
-            list.innerHTML = `
-                <div class="loading-state">
-                    <div class="spinner"></div>
-                    <p>Loading notifications...</p>
-                </div>
-            `;
-        }
-        if (emptyState) emptyState.style.display = 'none';
-        if (pagination) pagination.style.display = 'none';
-    },
-
-    renderNotifications() {
-        const list = document.getElementById('notificationsListPage');
-        const emptyState = document.getElementById('emptyState');
-        const pagination = document.getElementById('pagination');
-
-        if (!list) return;
-
-        let filteredNotifications = this.notifications;
-
-        // Apply filter
-        if (this.currentFilter !== 'all') {
-            if (this.currentFilter === 'unread') {
-                filteredNotifications = this.notifications.filter(n => !n.read_at);
-            } else {
-                filteredNotifications = this.notifications.filter(n => n.type === this.currentFilter);
-            }
         }
 
-        if (filteredNotifications.length === 0) {
-            list.innerHTML = '';
-            if (emptyState) emptyState.style.display = 'flex';
-            if (pagination) pagination.style.display = 'none';
-            return;
+        const markReadBtn = document.getElementById('markReadBtn');
+        if (markReadBtn) {
+            markReadBtn.addEventListener('click', () => {
+                if (this.selectedId) this.markAsRead(this.selectedId);
+            });
         }
 
-        if (emptyState) emptyState.style.display = 'none';
-        if (pagination) pagination.style.display = 'flex';
-
-        list.innerHTML = filteredNotifications.map(n => this.createNotificationItem(n)).join('');
-
-        // Bind click events for notification items
-        list.querySelectorAll('.notification-item-full').forEach(item => {
-            const id = item.dataset.id;
-            
-            item.addEventListener('click', () => this.markAsRead(id));
-
-            const deleteBtn = item.querySelector('.action-btn.delete');
-            if (deleteBtn) {
-                deleteBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.deleteNotification(id);
-                });
+        // Handle browser back button on mobile
+        window.addEventListener('popstate', (e) => {
+            if (this.isMobile() && document.querySelector('.notifications-container.preview-active')) {
+                this.goBack();
             }
         });
     },
 
-    renderFallbackNotifications() {
-        const list = document.getElementById('notificationsListPage');
-        const emptyState = document.getElementById('emptyState');
-        const pagination = document.getElementById('pagination');
-
-        if (!list) return;
-
-        // Show fallback static notifications
-        const fallbackNotifications = [
-            {
-                id: 1,
-                type: 'info',
-                title: 'Attendance Alert',
-                message: 'Your attendance for Physics dropped below 85%. Please ensure regular attendance to maintain your academic standing.',
-                created_at: '2 hours ago',
-                read_at: null
-            },
-            {
-                id: 2,
-                type: 'success',
-                title: 'Attendance Marked',
-                message: 'Your attendance has been successfully marked for Mathematics class.',
-                created_at: 'Today, 8:05 AM',
-                read_at: '2025-12-26'
-            },
-            {
-                id: 3,
-                type: 'warning',
-                title: 'Attendance Reminder',
-                message: 'Your English class attendance is at 78%. Consider attending more classes to improve your attendance percentage.',
-                created_at: 'Yesterday',
-                read_at: null
-            }
-        ];
-
-        this.notifications = fallbackNotifications;
-        
-        list.innerHTML = fallbackNotifications.map(n => this.createNotificationItem(n)).join('');
-        
-        if (emptyState) emptyState.style.display = 'none';
-        if (pagination) pagination.style.display = 'none';
-        
-        this.updateCount(fallbackNotifications.length);
+    isMobile() {
+        return window.innerWidth <= 768;
     },
 
-    createNotificationItem(notification) {
-        const isUnread = !notification.read_at;
-        const iconSvg = this.getIconSvg(notification.type);
-        const timeDisplay = notification.created_at;
+    goBack() {
+        const container = document.querySelector('.notifications-container');
+        if (container) {
+            container.classList.remove('preview-active');
+        }
+        this.selectedId = null;
+        
+        // Update list selection
+        document.querySelectorAll('.notification-list-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+    },
 
+    renderNotifications() {
+        const list = document.getElementById('notificationsListPage');
+        if (!list) return;
+
+        let filtered = this.notifications;
+
+        // Apply filter
+        if (this.currentFilter !== 'all') {
+            if (this.currentFilter === 'unread') {
+                filtered = this.notifications.filter(n => !n.read);
+            } else {
+                filtered = this.notifications.filter(n => n.type === this.currentFilter);
+            }
+        }
+
+        if (filtered.length === 0) {
+            list.innerHTML = `
+                <div class="empty-list">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0a2 2 0 11-4 0m4 0H9"></path>
+                    </svg>
+                    <p>No notifications found</p>
+                </div>
+            `;
+            return;
+        }
+
+        list.innerHTML = filtered.map(n => this.createListItem(n)).join('');
+
+        // Bind click events
+        list.querySelectorAll('.notification-list-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const id = parseInt(item.dataset.id);
+                this.selectNotification(id);
+            });
+        });
+    },
+
+    createListItem(notification) {
+        const isSelected = this.selectedId === notification.id;
         return `
-            <div class="notification-item-full ${isUnread ? 'unread' : ''}" data-id="${notification.id}">
-                <div class="notification-icon-large ${notification.type}">
-                    ${iconSvg}
-                </div>
-                <div class="notification-body">
-                    <h4 class="notification-title">${notification.title}</h4>
-                    <p class="notification-message">${notification.message}</p>
-                    <div class="notification-meta">
-                        <span class="notification-time">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M12 6v6l4 2"></path>
-                            </svg>
-                            ${timeDisplay}
-                        </span>
+            <div class="notification-list-item ${notification.read ? 'read' : 'unread'} ${isSelected ? 'selected' : ''}" data-id="${notification.id}">
+                <div class="item-indicator ${notification.type}"></div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-title">${notification.title}</span>
+                        <span class="item-time">${notification.time}</span>
                     </div>
-                </div>
-                <div class="notification-actions">
-                    <button class="action-btn delete" title="Delete">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path>
-                        </svg>
-                    </button>
+                    <p class="item-preview">${notification.message.substring(0, 60)}...</p>
                 </div>
             </div>
         `;
+    },
+
+    selectNotification(id) {
+        this.selectedId = id;
+        const notification = this.notifications.find(n => n.id === id);
+        
+        if (!notification) return;
+
+        // Update list selection
+        document.querySelectorAll('.notification-list-item').forEach(item => {
+            item.classList.toggle('selected', parseInt(item.dataset.id) === id);
+        });
+
+        // Show preview panel on mobile
+        if (this.isMobile()) {
+            const container = document.querySelector('.notifications-container');
+            if (container) {
+                container.classList.add('preview-active');
+                // Add history state for back button
+                history.pushState({ preview: true }, '');
+            }
+        }
+
+        // Update preview content
+        document.getElementById('previewIcon').innerHTML = this.getIconSvg(notification.type);
+        document.getElementById('previewIcon').className = `preview-icon ${notification.type}`;
+        document.getElementById('previewType').textContent = notification.type.charAt(0).toUpperCase() + notification.type.slice(1);
+        document.getElementById('previewTime').textContent = notification.time;
+        document.getElementById('previewTitle').textContent = notification.title;
+        document.getElementById('previewMessage').textContent = notification.message;
+
+        // Update mark as read button and footer
+        const previewFooter = document.getElementById('previewFooter');
+        const markReadBtn = document.getElementById('markReadBtn');
+        if (previewFooter && markReadBtn) {
+            previewFooter.style.display = notification.read ? 'none' : 'block';
+        }
+
+        // Mark as read when selected
+        if (!notification.read) {
+            notification.read = true;
+            this.renderNotifications();
+            this.updateCount();
+        }
     },
 
     getIconSvg(type) {
@@ -241,7 +249,6 @@ const NotificationPage = {
     setFilter(filter) {
         this.currentFilter = filter;
         
-        // Update active state
         document.querySelectorAll('.filter-item').forEach(item => {
             item.classList.toggle('active', item.dataset.filter === filter);
         });
@@ -249,106 +256,54 @@ const NotificationPage = {
         this.renderNotifications();
     },
 
-    updatePagination() {
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const paginationInfo = document.getElementById('paginationInfo');
-
-        if (prevBtn) prevBtn.disabled = this.currentPage <= 1;
-        if (nextBtn) nextBtn.disabled = this.currentPage >= this.totalPages;
-        if (paginationInfo) paginationInfo.textContent = `Page ${this.currentPage} of ${this.totalPages}`;
-    },
-
-    updateCount(total) {
+    updateCount() {
         const countEl = document.getElementById('totalCount');
+        const unreadCount = this.notifications.filter(n => !n.read).length;
+        const total = this.notifications.length;
         if (countEl) {
-            countEl.textContent = `${total} notification${total !== 1 ? 's' : ''}`;
+            countEl.textContent = unreadCount > 0 ? `${unreadCount} unread` : `${total} notifications`;
         }
     },
 
-    goToPage(page) {
-        if (page < 1 || page > this.totalPages) return;
-        this.currentPage = page;
-        this.fetchNotifications();
-    },
-
-    async markAsRead(id) {
-        try {
-            await fetch(`${this.apiBaseUrl}/api/notifications/${id}/read`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-
-            // Update local state
-            const notification = this.notifications.find(n => n.id == id);
-            if (notification) {
-                notification.read_at = new Date().toISOString();
-            }
+    markAsRead(id) {
+        const notification = this.notifications.find(n => n.id === id);
+        if (notification) {
+            notification.read = true;
             this.renderNotifications();
+            this.updateCount();
             
-            // Update navbar notification count
-            if (typeof NotificationManager !== 'undefined') {
-                NotificationManager.fetchDropdownNotifications();
-            }
-        } catch (error) {
-            console.error('Error marking notification as read:', error);
+            // Hide mark as read button
+            const previewFooter = document.getElementById('previewFooter');
+            if (previewFooter) previewFooter.style.display = 'none';
         }
     },
 
-    async markAllAsRead() {
-        try {
-            await fetch(`${this.apiBaseUrl}/api/notifications/read-all`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-
-            // Update local state
-            this.notifications.forEach(n => {
-                n.read_at = new Date().toISOString();
-            });
-            this.renderNotifications();
-            
-            // Update navbar notification count
-            if (typeof NotificationManager !== 'undefined') {
-                NotificationManager.fetchDropdownNotifications();
-            }
-        } catch (error) {
-            console.error('Error marking all notifications as read:', error);
-        }
+    markAllAsRead() {
+        this.notifications.forEach(n => n.read = true);
+        this.renderNotifications();
+        this.updateCount();
+        
+        // Hide mark as read button if preview is open
+        const previewFooter = document.getElementById('previewFooter');
+        if (previewFooter) previewFooter.style.display = 'none';
     },
 
-    async deleteNotification(id) {
-        if (!confirm('Are you sure you want to delete this notification?')) return;
-
-        try {
-            await fetch(`${this.apiBaseUrl}/api/notifications/${id}`, {
-                method: 'DELETE',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-
-            // Remove from local state
-            this.notifications = this.notifications.filter(n => n.id != id);
-            this.renderNotifications();
-            
-            // Update navbar notification count
-            if (typeof NotificationManager !== 'undefined') {
-                NotificationManager.fetchDropdownNotifications();
-            }
-        } catch (error) {
-            console.error('Error deleting notification:', error);
+    deleteNotification(id) {
+        this.notifications = this.notifications.filter(n => n.id !== id);
+        
+        // Go back to list on mobile after delete
+        if (this.isMobile()) {
+            this.goBack();
+        } else {
+            // Reset preview on desktop
+            this.selectedId = null;
+            document.getElementById('previewTitle').textContent = 'Select a notification';
+            document.getElementById('previewMessage').textContent = 'Choose a notification from the list to view its details.';
+            document.getElementById('previewFooter').style.display = 'none';
         }
+        
+        this.renderNotifications();
+        this.updateCount();
     }
 };
 
