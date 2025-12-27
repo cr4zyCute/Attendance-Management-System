@@ -156,15 +156,6 @@ $pageTitle = 'My Courses';
                             <span>Tue, Thu - 10:00 AM</span>
                         </div>
                     </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Attendance</span>
-                            <span class="attendance-value">85%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 85%;"></div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Course Card 3 -->
@@ -193,15 +184,6 @@ $pageTitle = 'My Courses';
                                 <path d="M12 6v6l4 2"></path>
                             </svg>
                             <span>Mon, Wed - 1:00 PM</span>
-                        </div>
-                    </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Attendance</span>
-                            <span class="attendance-value high">95%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill high" style="width: 95%;"></div>
                         </div>
                     </div>
                 </div>
@@ -235,15 +217,6 @@ $pageTitle = 'My Courses';
                             <span>Tue, Thu - 3:00 PM</span>
                         </div>
                     </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Attendance</span>
-                            <span class="attendance-value warning">78%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill warning" style="width: 78%;"></div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Course Card 5 -->
@@ -275,15 +248,6 @@ $pageTitle = 'My Courses';
                             <span>Wed, Fri - 9:00 AM</span>
                         </div>
                     </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Attendance</span>
-                            <span class="attendance-value">82%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 82%;"></div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Course Card 6 - Completed -->
@@ -313,15 +277,6 @@ $pageTitle = 'My Courses';
                                 <path d="M12 6v6l4 2"></path>
                             </svg>
                             <span>Completed - Fall 2025</span>
-                        </div>
-                    </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Final Attendance</span>
-                            <span class="attendance-value high">92%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill high" style="width: 92%;"></div>
                         </div>
                     </div>
                 </div>

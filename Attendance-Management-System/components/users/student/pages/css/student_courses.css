@@ -588,59 +588,6 @@ svg {
     color: var(--text-light);
 }
 
-.course-footer {
-    padding: 15px 20px;
-    border-top: 1px solid var(--border-color);
-    background: var(--bg-color);
-}
-
-.attendance-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.attendance-label {
-    font-size: 13px;
-    color: var(--text-secondary);
-}
-
-.attendance-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-.attendance-value.high {
-    color: var(--success-color);
-}
-
-.attendance-value.warning {
-    color: var(--accent-color);
-}
-
-.progress-bar {
-    height: 6px;
-    background: var(--border-color);
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: var(--primary-color);
-    border-radius: 3px;
-}
-
-.progress-fill.high {
-    background: var(--success-color);
-}
-
-.progress-fill.warning {
-    background: var(--accent-color);
-}
-
-
 /* Responsive */
 @media (max-width: 1200px) {
     .courses-grid {
@@ -832,33 +779,60 @@ svg {
     }
 
     .courses-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    /* Compact course cards on mobile */
+    .course-card {
+        border-radius: 10px;
     }
 
     .course-header {
-        padding: 16px;
+        padding: 12px;
     }
 
     .course-icon {
-        width: 48px;
-        height: 48px;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
     }
 
     .course-icon svg {
-        width: 24px;
-        height: 24px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .course-status {
+        padding: 3px 8px;
+        font-size: 10px;
     }
 
     .course-body {
-        padding: 0 16px 16px;
+        padding: 0 12px 12px;
     }
 
     .course-title {
-        font-size: 16px;
+        font-size: 13px;
+        margin-bottom: 2px;
     }
 
-    .course-footer {
-        padding: 12px 16px;
+    .course-code {
+        font-size: 11px;
+        margin-bottom: 8px;
+    }
+
+    .course-teacher,
+    .course-schedule {
+        font-size: 11px;
+        gap: 5px;
+        margin-bottom: 4px;
+    }
+
+    .course-teacher svg,
+    .course-schedule svg {
+        width: 12px;
+        height: 12px;
     }
 
     .header {
@@ -907,6 +881,55 @@ svg {
 
     .stat-text {
         font-size: 9px;
+    }
+
+    /* Even more compact course cards */
+    .courses-grid {
+        gap: 8px;
+    }
+
+    .course-header {
+        padding: 10px;
+    }
+
+    .course-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .course-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .course-status {
+        padding: 2px 6px;
+        font-size: 9px;
+    }
+
+    .course-body {
+        padding: 0 10px 10px;
+    }
+
+    .course-title {
+        font-size: 12px;
+    }
+
+    .course-code {
+        font-size: 10px;
+        margin-bottom: 6px;
+    }
+
+    .course-teacher,
+    .course-schedule {
+        font-size: 10px;
+        margin-bottom: 3px;
+    }
+
+    .course-teacher svg,
+    .course-schedule svg {
+        width: 10px;
+        height: 10px;
     }
 }
 
@@ -1260,8 +1283,21 @@ svg {
     }
 
     .modal-details-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .modal-detail-item {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .detail-label {
+        font-size: 11px;
+    }
+
+    .detail-value {
+        font-size: 13px;
     }
 }
 
@@ -1302,21 +1338,81 @@ svg {
         padding: 16px;
     }
 
+    .modal-section {
+        margin-bottom: 16px;
+    }
+
+    .modal-section-title {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    /* Compact 2x2 grid for course details */
+    .modal-details-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
     .modal-detail-item {
-        padding: 12px;
+        padding: 10px;
+        gap: 8px;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .modal-detail-item svg {
+        width: 16px;
+        height: 16px;
+        margin-top: 0;
+    }
+
+    .detail-content {
+        gap: 0;
+    }
+
+    .detail-label {
+        font-size: 10px;
+    }
+
+    .detail-value {
+        font-size: 12px;
+    }
+
+    .detail-value.status-badge {
+        padding: 2px 8px;
+        font-size: 10px;
+    }
+
+    /* Compact attendance list */
+    .modal-attendance-list {
+        gap: 6px;
+        max-height: 250px;
     }
 
     .attendance-row {
         padding: 10px 12px;
-        gap: 12px;
+        gap: 10px;
+    }
+
+    .attendance-date {
+        min-width: 36px;
     }
 
     .att-day {
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    .att-month {
+        font-size: 9px;
     }
 
     .attendance-time {
-        font-size: 13px;
+        font-size: 12px;
+    }
+
+    .attendance-status {
+        padding: 4px 10px;
+        font-size: 10px;
     }
 }
 
