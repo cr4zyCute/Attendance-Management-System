@@ -21,11 +21,19 @@ $pageTitle = 'My Profile';
         <div class="profile-content">
             <!-- Profile Header Card -->
             <div class="profile-header-card">
-                <div class="profile-cover"></div>
+                <div class="profile-cover" id="profileCover">
+                    <button class="cover-edit-btn" id="changeCoverBtn" title="Change cover photo">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                        Change Cover
+                    </button>
+                </div>
                 <div class="profile-info-section">
                     <div class="profile-avatar-wrapper">
-                        <div class="profile-avatar">JS</div>
-                        <button class="avatar-edit-btn" title="Change photo">
+                        <div class="profile-avatar" id="profileAvatar">JS</div>
+                        <button class="avatar-edit-btn" id="changeAvatarBtn" title="Change photo">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"></path>
                                 <circle cx="12" cy="13" r="4"></circle>
@@ -225,117 +233,22 @@ $pageTitle = 'My Profile';
                 </div>
             </div>
 
-            <!-- Recent Attendance -->
-            <div class="card recent-attendance-card">
-                <div class="card-header">
-                    <h2 class="card-title">Recent Attendance</h2>
-                    <a href="student_attendance.php" class="view-all">View All</a>
-                </div>
-                <div class="card-body">
-                    <div class="attendance-timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">
-                                <span class="day">21</span>
-                                <span class="month">Dec</span>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="timeline-row">
-                                    <span class="subject">Mathematics</span>
-                                    <span class="time">08:00 AM</span>
-                                    <span class="status present">Present</span>
-                                </div>
-                                <div class="timeline-row">
-                                    <span class="subject">Physics</span>
-                                    <span class="time">10:00 AM</span>
-                                    <span class="status present">Present</span>
-                                </div>
-                                <div class="timeline-row">
-                                    <span class="subject">Computer Science</span>
-                                    <span class="time">01:00 PM</span>
-                                    <span class="status present">Present</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">
-                                <span class="day">20</span>
-                                <span class="month">Dec</span>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="timeline-row">
-                                    <span class="subject">Chemistry</span>
-                                    <span class="time">09:00 AM</span>
-                                    <span class="status present">Present</span>
-                                </div>
-                                <div class="timeline-row">
-                                    <span class="subject">English</span>
-                                    <span class="time">03:00 PM</span>
-                                    <span class="status late">Late</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">
-                                <span class="day">19</span>
-                                <span class="month">Dec</span>
-                            </div>
-                            <div class="timeline-content">
-                                <div class="timeline-row">
-                                    <span class="subject">Mathematics</span>
-                                    <span class="time">08:00 AM</span>
-                                    <span class="status present">Present</span>
-                                </div>
-                                <div class="timeline-row">
-                                    <span class="subject">Physics</span>
-                                    <span class="time">10:00 AM</span>
-                                    <span class="status absent">Absent</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Edit Profile Modal -->
-        <div class="modal-overlay" id="editProfileModal">
-            <div class="modal-container">
-                <div class="modal-header">
-                    <h2>Edit Profile</h2>
-                    <button class="modal-close" id="closeEditModal">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 6L6 18M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="editProfileForm">
-                        <div class="form-group">
-                            <label for="editName">Full Name</label>
-                            <input type="text" id="editName" value="John Michael Student">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="editEmail">Email</label>
-                                <input type="email" id="editEmail" value="john.student@school.edu">
-                            </div>
-                            <div class="form-group">
-                                <label for="editPhone">Phone</label>
-                                <input type="tel" id="editPhone" value="+1 (555) 123-4567">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="editDob">Date of Birth</label>
-                            <input type="date" id="editDob" value="2005-03-15">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" id="cancelEdit">Cancel</button>
-                    <button class="btn btn-primary" id="saveProfile">Save Changes</button>
-                </div>
-            </div>
-        </div>
+        <?php include '../modals/profile_modal/profile_modal.php'; ?>
+        
+        <!-- Cover Photo Modal -->
+        <?php include '../modals/profile_modal/coverphoto_modal.php'; ?>
+        
+        <!-- Profile Photo Modal -->
+        <?php include '../modals/profile_modal/profilephoto.php'; ?>
+        
+        <!-- Success Modal -->
+        <?php include '../modals/profile_modal/success.php'; ?>
+        
+        <!-- Failed Modal -->
+        <?php include '../modals/profile_modal/failed.php'; ?>
     </main>
 
     <script src="../js/student-dashboard.js"></script>

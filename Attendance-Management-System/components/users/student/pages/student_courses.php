@@ -11,6 +11,7 @@ $pageTitle = 'My Courses';
     <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
+    <div class="dropdown-overlay"></div>
     <?php include '../sidebar.php'; ?>
 
     <!-- Main Content -->
@@ -121,15 +122,6 @@ $pageTitle = 'My Courses';
                                 <path d="M12 6v6l4 2"></path>
                             </svg>
                             <span>Mon, Wed, Fri - 8:00 AM</span>
-                        </div>
-                    </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Attendance</span>
-                            <span class="attendance-value">90%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 90%;"></div>
                         </div>
                     </div>
                 </div>

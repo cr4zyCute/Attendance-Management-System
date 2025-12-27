@@ -255,18 +255,16 @@ svg {
 }
 
 .profile-cover {
-    height: 140px;
+    height: 120px;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, var(--primary-color) 100%);
-    position: relative;
 }
 
 .profile-info-section {
     display: flex;
     align-items: center;
     gap: 24px;
-    padding: 20px 30px;
-    position: relative;
-    margin-top: -70px;
+    padding: 0 30px 24px;
+    margin-top: -50px;
     flex-wrap: wrap;
 }
 
@@ -276,24 +274,24 @@ svg {
 }
 
 .profile-avatar {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: var(--primary-color);
     color: var(--text-white);
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 5px solid var(--card-bg);
+    border: 4px solid var(--card-bg);
     box-shadow: var(--shadow-lg);
 }
 
 .avatar-edit-btn {
     position: absolute;
-    bottom: 8px;
-    right: 8px;
+    bottom: 4px;
+    right: 4px;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -316,11 +314,11 @@ svg {
 .profile-details {
     flex: 1;
     min-width: 200px;
-    padding-top: 30px;
+    padding-top: 55px;
 }
 
 .profile-name {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     margin-bottom: 4px;
     color: var(--text-primary);
@@ -358,7 +356,7 @@ svg {
 .profile-actions {
     display: flex;
     gap: 12px;
-    padding-top: 30px;
+    padding-top: 55px;
 }
 
 .btn {
@@ -769,6 +767,9 @@ svg {
     border-radius: 16px;
     width: 100%;
     max-width: 500px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
     transform: scale(0.9);
     transition: all 0.3s ease;
 }
@@ -783,6 +784,7 @@ svg {
     justify-content: space-between;
     padding: 20px 24px;
     border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .modal-header h2 {
@@ -810,6 +812,8 @@ svg {
 
 .modal-body {
     padding: 24px;
+    overflow-y: auto;
+    flex: 1;
 }
 
 .modal-footer {
@@ -818,6 +822,8 @@ svg {
     gap: 12px;
     padding: 16px 24px;
     border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+    background: var(--card-bg);
 }
 
 /* Form */
@@ -844,9 +850,31 @@ svg {
     border-radius: 10px;
     font-size: 14px;
     transition: var(--transition);
+    font-family: inherit;
 }
 
 .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.15);
+}
+
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    transition: var(--transition);
+    font-family: inherit;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    resize: vertical;
+}
+
+.form-group select:focus,
+.form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.15);
@@ -899,23 +927,23 @@ svg {
     }
 
     .profile-info-section {
-        padding: 15px 20px 20px;
+        padding: 0 20px 20px;
         gap: 16px;
-        margin-top: -60px;
+        margin-top: -40px;
     }
 
     .profile-avatar {
-        width: 90px;
-        height: 90px;
-        font-size: 32px;
+        width: 80px;
+        height: 80px;
+        font-size: 28px;
     }
 
     .profile-details {
-        padding-top: 20px;
+        padding-top: 45px;
     }
 
     .profile-name {
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .profile-actions {
@@ -950,7 +978,7 @@ svg {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-top: -50px;
+        margin-top: -40px;
         padding: 0 15px 20px;
     }
 
@@ -1015,5 +1043,1305 @@ svg {
 
     .course-progress {
         width: 100%;
+    }
+}
+
+
+/* Modal Tabs */
+.modal-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 24px;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.modal-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: var(--transition);
+}
+
+.modal-tab:hover {
+    color: var(--text-primary);
+}
+
+.modal-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.modal-tab svg {
+    flex-shrink: 0;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Security Section */
+.security-section {
+    margin-bottom: 24px;
+}
+
+.security-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.section-title svg {
+    color: var(--primary-color);
+}
+
+.section-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 24px 0;
+}
+
+/* Password Input */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input-wrapper input {
+    width: 100%;
+    padding-right: 48px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    border-radius: 6px;
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.toggle-password.active {
+    color: var(--primary-color);
+}
+
+.toggle-password .eye-icon {
+    pointer-events: none;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+    margin-top: 8px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--border-color);
+    overflow: hidden;
+}
+
+.password-strength::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.password-strength.weak::after {
+    width: 33%;
+    background: var(--danger-color);
+}
+
+.password-strength.medium::after {
+    width: 66%;
+    background: var(--warning-color);
+}
+
+.password-strength.strong::after {
+    width: 100%;
+    background: var(--success-color);
+}
+
+/* Disabled Input */
+.form-group input:disabled {
+    background: var(--bg-color);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+/* Responsive for tabs */
+@media (max-width: 576px) {
+    .modal-tabs {
+        padding: 0 16px;
+    }
+
+    .modal-tab {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    .modal-tab svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+
+/* Cover Edit Button */
+.profile-cover {
+    position: relative;
+}
+
+.cover-edit-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.cover-edit-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Cover Photo Modal Styles */
+#coverPhotoModal .modal-container {
+    max-width: 550px;
+}
+
+.cover-preview {
+    height: 100px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #84cc16 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 10px 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cover-preview img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px 8px;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.tab-description {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+/* Color Grid */
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+.color-option {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.selected {
+    border-color: var(--text-primary);
+    box-shadow: 0 0 0 2px var(--card-bg), 0 0 0 4px var(--text-primary);
+}
+
+/* Gradient Grid */
+.gradient-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.gradient-option {
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.gradient-option:hover {
+    transform: scale(1.03);
+}
+
+.gradient-option.selected {
+    border-color: var(--text-primary);
+    box-shadow: 0 0 0 2px var(--card-bg), 0 0 0 4px var(--text-primary);
+}
+
+/* Upload Area */
+.upload-area {
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.upload-area.dragover {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+}
+
+.upload-placeholder svg {
+    color: var(--text-light);
+}
+
+.upload-placeholder p {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.upload-placeholder span {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .color-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    .gradient-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cover-edit-btn {
+        opacity: 1;
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .cover-edit-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+
+/* Profile Photo Modal Styles */
+#profilePhotoModal .modal-container {
+    max-width: 480px;
+}
+
+.avatar-preview-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.avatar-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.avatar-preview .avatar-initials {
+    position: relative;
+    z-index: 1;
+}
+
+.avatar-preview .avatar-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-hint {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 8px;
+}
+
+/* Avatar Color Grid */
+.avatar-color-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.avatar-color-option {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.avatar-color-option:hover {
+    transform: scale(1.1);
+}
+
+.avatar-color-option.selected {
+    border-color: var(--text-primary);
+    box-shadow: 0 0 0 2px var(--card-bg), 0 0 0 4px var(--text-primary);
+}
+
+/* Upload Actions */
+.upload-actions {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.btn-sm {
+    padding: 8px 14px;
+    font-size: 13px;
+}
+
+.btn-sm svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Profile Avatar with Image */
+.profile-avatar {
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-avatar img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-avatar .avatar-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .avatar-color-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    .avatar-color-option {
+        font-size: 14px;
+    }
+
+    .avatar-preview {
+        width: 80px;
+        height: 80px;
+        font-size: 28px;
+    }
+}
+
+
+/* Image Adjustment Controls */
+.image-adjust-controls {
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--bg-color);
+    border-radius: 10px;
+}
+
+.adjust-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.adjust-control:last-of-type {
+    margin-bottom: 16px;
+}
+
+.adjust-control label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    min-width: 100px;
+}
+
+.adjust-control label svg {
+    color: var(--text-light);
+}
+
+.adjust-control input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-color);
+    appearance: none;
+    cursor: pointer;
+}
+
+.adjust-control input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.adjust-control input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.adjust-control input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    border: none;
+}
+
+.adjust-control span {
+    font-size: 12px;
+    color: var(--text-light);
+    min-width: 40px;
+    text-align: right;
+}
+
+.image-adjust-controls .btn-sm {
+    width: 100%;
+}
+
+/* ========================================
+   RESPONSIVE MODAL STYLES
+   ======================================== */
+
+/* Tablet and below */
+@media (max-width: 768px) {
+
+    /* Modal Overlay - Centered with padding */
+    .modal-overlay {
+        padding: 20px;
+        align-items: center;
+    }
+
+    /* Modal Container - Centered card style */
+    .modal-container {
+        max-width: 420px;
+        max-height: 80vh;
+        border-radius: 16px;
+        margin: auto;
+    }
+
+    #coverPhotoModal .modal-container,
+    #profilePhotoModal .modal-container {
+        max-width: 420px;
+    }
+
+    /* Modal Header */
+    .modal-header {
+        padding: 16px 20px;
+    }
+
+    .modal-header h2 {
+        font-size: 16px;
+    }
+
+    .modal-close {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Modal Tabs */
+    .modal-tabs {
+        padding: 0 16px;
+        gap: 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .modal-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .modal-tab {
+        padding: 12px 14px;
+        font-size: 13px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .modal-tab svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Modal Body */
+    .modal-body {
+        padding: 20px 16px;
+    }
+
+    /* Modal Footer */
+    .modal-footer {
+        padding: 14px 16px;
+        gap: 10px;
+    }
+
+    .modal-footer .btn {
+        flex: 1;
+        justify-content: center;
+        padding: 12px 16px;
+    }
+
+    /* Cover Preview */
+    .cover-preview {
+        height: 80px;
+        margin-bottom: 16px;
+    }
+
+    /* Color Grid */
+    .color-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+    }
+
+    /* Gradient Grid */
+    .gradient-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .gradient-option {
+        height: 50px;
+    }
+
+    /* Upload Area */
+    .upload-area {
+        padding: 30px 16px;
+    }
+
+    .upload-placeholder svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .upload-placeholder p {
+        font-size: 13px;
+    }
+
+    /* Avatar Preview */
+    .avatar-preview {
+        width: 80px;
+        height: 80px;
+        font-size: 28px;
+    }
+
+    /* Avatar Color Grid */
+    .avatar-color-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    .avatar-color-option {
+        font-size: 14px;
+    }
+
+    /* Image Adjustment Controls */
+    .image-adjust-controls {
+        padding: 14px;
+    }
+
+    .adjust-control {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .adjust-control label {
+        min-width: 90px;
+        font-size: 12px;
+    }
+
+    .adjust-control input[type="range"] {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .adjust-control span {
+        min-width: 35px;
+        font-size: 11px;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+
+    /* Modal Overlay - Keep centered with margin */
+    .modal-overlay {
+        padding: 24px 16px;
+        align-items: center;
+    }
+
+    /* Modal Container - Centered card, NOT full screen */
+    .modal-container {
+        max-width: 100%;
+        max-height: 80vh;
+        border-radius: 16px;
+        margin: auto;
+    }
+
+    #coverPhotoModal .modal-container,
+    #profilePhotoModal .modal-container {
+        max-width: 100%;
+    }
+
+    /* Modal Header */
+    .modal-header {
+        padding: 14px 16px;
+    }
+
+    .modal-header h2 {
+        font-size: 15px;
+    }
+
+    /* Modal Tabs - Scrollable on small screens */
+    .modal-tabs {
+        padding: 0 12px;
+        gap: 2px;
+    }
+
+    .modal-tab {
+        padding: 10px 12px;
+        font-size: 12px;
+        gap: 6px;
+    }
+
+    .modal-tab svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* Modal Body */
+    .modal-body {
+        padding: 16px 12px;
+    }
+
+    /* Tab Description */
+    .tab-description {
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    /* Cover Preview */
+    .cover-preview {
+        height: 70px;
+        margin-bottom: 14px;
+        border-radius: 8px;
+    }
+
+    .preview-label {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+
+    /* Color Grid - 5 columns on small phones */
+    .color-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+    }
+
+    .color-option {
+        border-radius: 8px;
+        border-width: 2px;
+    }
+
+    /* Gradient Grid */
+    .gradient-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .gradient-option {
+        height: 45px;
+        border-radius: 8px;
+        border-width: 2px;
+    }
+
+    /* Upload Area */
+    .upload-area {
+        padding: 24px 12px;
+        border-radius: 10px;
+    }
+
+    .upload-placeholder svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .upload-placeholder p {
+        font-size: 12px;
+    }
+
+    .upload-placeholder span {
+        font-size: 11px;
+    }
+
+    /* Avatar Preview Container */
+    .avatar-preview-container {
+        margin-bottom: 16px;
+    }
+
+    .avatar-preview {
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+    }
+
+    .preview-hint {
+        font-size: 11px;
+        margin-top: 6px;
+    }
+
+    /* Avatar Color Grid - 4 columns with smaller size */
+    .avatar-color-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+
+    .avatar-color-option {
+        font-size: 11px;
+        border-width: 2px;
+    }
+
+    /* Image Adjustment Controls */
+    .image-adjust-controls {
+        padding: 12px;
+        margin-top: 16px;
+        border-radius: 8px;
+    }
+
+    .adjust-control {
+        margin-bottom: 10px;
+    }
+
+    .adjust-control:last-of-type {
+        margin-bottom: 12px;
+    }
+
+    .adjust-control label {
+        min-width: 80px;
+        font-size: 11px;
+        gap: 4px;
+    }
+
+    .adjust-control label svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .adjust-control span {
+        min-width: 32px;
+        font-size: 10px;
+    }
+
+    /* Upload Actions */
+    .upload-actions {
+        margin-top: 14px;
+    }
+
+    /* Modal Footer */
+    .modal-footer {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .modal-footer .btn {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+
+    .btn-sm {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 360px) {
+    .modal-overlay {
+        padding: 20px 12px;
+    }
+
+    .modal-container {
+        max-height: 85vh;
+    }
+
+    .modal-header h2 {
+        font-size: 14px;
+    }
+
+    .modal-tab {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .color-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .avatar-color-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .avatar-color-option {
+        font-size: 10px;
+    }
+
+    .avatar-preview {
+        width: 60px;
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .adjust-control {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .adjust-control label {
+        width: 100%;
+        margin-bottom: 4px;
+    }
+
+    .adjust-control input[type="range"] {
+        width: calc(100% - 45px);
+    }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .modal-overlay {
+        align-items: center;
+        padding: 10px;
+    }
+
+    .modal-container {
+        max-height: 90vh;
+        border-radius: 12px;
+    }
+
+    .modal-body {
+        padding: 12px 16px;
+    }
+
+    .cover-preview {
+        height: 60px;
+        margin-bottom: 12px;
+    }
+
+    .avatar-preview {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+
+    .avatar-preview-container {
+        margin-bottom: 10px;
+    }
+
+    .color-grid,
+    .avatar-color-grid {
+        gap: 6px;
+    }
+
+    .gradient-grid {
+        gap: 6px;
+    }
+
+    .gradient-option {
+        height: 40px;
+    }
+}
+
+
+/* ========================================
+   SUCCESS & FAILED MODAL STYLES
+   ======================================== */
+
+/* Success Modal */
+.success-modal {
+    max-width: 360px;
+    text-align: center;
+}
+
+.success-modal-content {
+    padding: 40px 30px;
+}
+
+.success-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+    animation: successPop 0.4s ease-out;
+}
+
+.success-ripple {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(34, 197, 94, 0.3);
+    animation: rippleOut 1s ease-out;
+}
+
+@keyframes successPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes rippleOut {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+.success-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.success-message {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    line-height: 1.5;
+}
+
+.success-btn {
+    min-width: 140px;
+    padding: 12px 24px;
+}
+
+/* Failed Modal */
+.failed-modal {
+    max-width: 380px;
+    text-align: center;
+}
+
+.failed-modal-content {
+    padding: 40px 30px;
+}
+
+.failed-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.failed-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+    animation: failedShake 0.5s ease-out;
+}
+
+.failed-ripple {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.3);
+    animation: rippleOut 1s ease-out;
+}
+
+@keyframes failedShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.failed-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.failed-message {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    line-height: 1.5;
+}
+
+.failed-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.failed-actions .btn {
+    min-width: 110px;
+    padding: 12px 20px;
+}
+
+.btn-danger {
+    background: var(--danger-color);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+/* Responsive for Success/Failed Modals */
+@media (max-width: 480px) {
+
+    .success-modal,
+    .failed-modal {
+        max-width: calc(100% - 32px);
+    }
+
+    .success-modal-content,
+    .failed-modal-content {
+        padding: 32px 24px;
+    }
+
+    .success-icon,
+    .failed-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .success-icon svg,
+    .failed-icon svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .success-ripple,
+    .failed-ripple {
+        width: 70px;
+        height: 70px;
+    }
+
+    .success-title,
+    .failed-title {
+        font-size: 20px;
+    }
+
+    .success-message,
+    .failed-message {
+        font-size: 13px;
+        margin-bottom: 24px;
+    }
+
+    .failed-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .failed-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .success-modal-content,
+    .failed-modal-content {
+        padding: 28px 20px;
+    }
+
+    .success-icon,
+    .failed-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .success-icon svg,
+    .failed-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .success-ripple,
+    .failed-ripple {
+        width: 60px;
+        height: 60px;
+    }
+
+    .success-title,
+    .failed-title {
+        font-size: 18px;
     }
 }

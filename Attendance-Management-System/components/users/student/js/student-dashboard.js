@@ -87,7 +87,397 @@ document.addEventListener('DOMContentLoaded', function() {
     // Filter Dropdown Functionality
     initFilterDropdowns();
     initNotificationDropdown();
+    initBarChartAnimation();
+    initDateSlider();
 });
+
+// Animate bar chart on load
+function initBarChartAnimation() {
+    const bars = document.querySelectorAll('.bar-chart .bar');
+    if (!bars.length) return;
+
+    // Initially set bars to 0 height
+    bars.forEach(bar => {
+        const targetHeight = bar.style.getPropertyValue('--bar-height');
+        bar.style.setProperty('--bar-height', '0%');
+        bar.dataset.targetHeight = targetHeight;
+    });
+
+    // Animate after a short delay
+    setTimeout(() => {
+        bars.forEach((bar, index) => {
+            setTimeout(() => {
+                bar.style.setProperty('--bar-height', bar.dataset.targetHeight);
+            }, index * 100);
+        });
+    }, 200);
+
+    // Show values on hover
+    const barItems = document.querySelectorAll('.bar-item');
+    barItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            const value = item.querySelector('.bar-value');
+            if (value) value.style.opacity = '1';
+        });
+        item.addEventListener('mouseleave', () => {
+            const value = item.querySelector('.bar-value');
+            if (value) value.style.opacity = '0';
+        });
+    });
+}
+
+// Date Slider for Schedule
+function initDateSlider() {
+    const track = document.getElementById('dateSliderTrack');
+    const slider = document.getElementById('dateSlider');
+    const scheduleList = document.getElementById('scheduleList');
+    const noSchedule = document.getElementById('noSchedule');
+    const monthLabel = document.getElementById('currentMonth');
+    const monthPickerBtn = document.getElementById('monthPickerBtn');
+    const calendarDropdown = document.getElementById('calendarDropdown');
+    const calMonthYear = document.getElementById('calMonthYear');
+    const calendarDays = document.getElementById('calendarDays');
+    const calPrevMonth = document.getElementById('calPrevMonth');
+    const calNextMonth = document.getElementById('calNextMonth');
+    const calTodayBtn = document.getElementById('calTodayBtn');
+
+    if (!track || !slider) return;
+
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    const today = new Date();
+    let selectedDate = new Date(today);
+    let calendarDate = new Date(today);
+    let currentOffset = 0;
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    // Generate schedule data for any date based on day of week
+    function getScheduleForDate(date) {
+        const dayOfWeek = date.getDay();
+        const isPast = date < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const isToday = formatDate(date) === formatDate(today);
+        
+        const schedules = {
+            0: [],
+            1: [
+                { time: '08:00', period: 'AM', subject: 'Mathematics', room: 'Room 101' },
+                { time: '10:00', period: 'AM', subject: 'Physics', room: 'Room 203' },
+                { time: '01:00', period: 'PM', subject: 'Computer Science', room: 'Lab 3' },
+                { time: '03:00', period: 'PM', subject: 'English', room: 'Room 105' }
+            ],
+            2: [
+                { time: '09:00', period: 'AM', subject: 'Chemistry', room: 'Lab 1' },
+                { time: '11:00', period: 'AM', subject: 'History', room: 'Room 302' },
+                { time: '02:00', period: 'PM', subject: 'Biology', room: 'Lab 2' }
+            ],
+            3: [
+                { time: '08:00', period: 'AM', subject: 'Mathematics', room: 'Room 101' },
+                { time: '10:00', period: 'AM', subject: 'Physics', room: 'Room 203' },
+                { time: '01:00', period: 'PM', subject: 'English', room: 'Room 105' }
+            ],
+            4: [
+                { time: '09:00', period: 'AM', subject: 'Computer Science', room: 'Lab 3' },
+                { time: '11:00', period: 'AM', subject: 'Chemistry', room: 'Lab 1' },
+                { time: '02:00', period: 'PM', subject: 'History', room: 'Room 302' }
+            ],
+            5: [
+                { time: '08:00', period: 'AM', subject: 'Biology', room: 'Lab 2' },
+                { time: '10:00', period: 'AM', subject: 'Mathematics', room: 'Room 101' },
+                { time: '01:00', period: 'PM', subject: 'Physics', room: 'Room 203' }
+            ],
+            6: []
+        };
+
+        const daySchedule = schedules[dayOfWeek] || [];
+        
+        return daySchedule.map((item) => {
+            let status = 'upcoming';
+            if (isPast) {
+                const rand = Math.random();
+                if (rand > 0.85) status = 'absent';
+                else if (rand > 0.75) status = 'late';
+                else status = 'present';
+            } else if (isToday) {
+                const currentHour = today.getHours();
+                const classHour = parseInt(item.time.split(':')[0]) + (item.period === 'PM' && item.time !== '12:00' ? 12 : 0);
+                if (currentHour > classHour) {
+                    status = Math.random() > 0.1 ? 'present' : 'late';
+                }
+            }
+            return { ...item, status };
+        });
+    }
+
+    function generateDates() {
+        track.innerHTML = '';
+        
+        for (let i = -7; i <= 7; i++) {
+            const date = new Date(selectedDate);
+            date.setDate(selectedDate.getDate() + i);
+            
+            const dateItem = document.createElement('div');
+            dateItem.className = 'date-item';
+            dateItem.dataset.date = formatDate(date);
+            dateItem.dataset.month = monthNames[date.getMonth()];
+            
+            const isToday = formatDate(date) === formatDate(today);
+            const isSelected = i === 0;
+            
+            if (isToday) dateItem.classList.add('today');
+            if (isSelected) dateItem.classList.add('active');
+            
+            dateItem.innerHTML = `
+                <span class="day-name">${dayNames[date.getDay()]}</span>
+                <span class="day-num">${date.getDate()}</span>
+            `;
+            
+            dateItem.addEventListener('click', (e) => {
+                if (!isDragging) selectDateFromSlider(dateItem);
+            });
+            track.appendChild(dateItem);
+        }
+        
+        centerSlider();
+        updateSchedule(formatDate(selectedDate));
+        updateMonthLabel();
+    }
+
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    function parseDate(dateStr) {
+        const [year, month, day] = dateStr.split('-').map(Number);
+        return new Date(year, month - 1, day);
+    }
+
+    function selectDateFromSlider(dateItem) {
+        selectedDate = parseDate(dateItem.dataset.date);
+        generateDates();
+    }
+
+    function selectDateFromCalendar(date) {
+        selectedDate = new Date(date);
+        generateDates();
+        closeCalendar();
+    }
+
+    function updateMonthLabel() {
+        if (monthLabel) {
+            monthLabel.textContent = monthNames[selectedDate.getMonth()];
+        }
+    }
+
+    function updateSchedule(dateStr) {
+        const date = parseDate(dateStr);
+        const schedule = getScheduleForDate(date);
+        
+        if (schedule.length === 0) {
+            scheduleList.style.display = 'none';
+            noSchedule.style.display = 'flex';
+        } else {
+            scheduleList.style.display = 'flex';
+            noSchedule.style.display = 'none';
+            
+            scheduleList.innerHTML = schedule.map(item => `
+                <div class="schedule-item">
+                    <div class="schedule-time">
+                        <span class="time">${item.time}</span>
+                        <span class="period">${item.period}</span>
+                    </div>
+                    <div class="schedule-details">
+                        <span class="subject">${item.subject}</span>
+                        <span class="room">${item.room}</span>
+                    </div>
+                    <span class="schedule-status ${item.status}">${item.status.charAt(0).toUpperCase() + item.status.slice(1)}</span>
+                </div>
+            `).join('');
+        }
+    }
+
+    function getItemWidth() {
+        return window.innerWidth <= 576 ? 37 : 46;
+    }
+
+    function getMaxOffset() {
+        const itemWidth = getItemWidth();
+        return Math.max(0, (track.children.length * itemWidth) - slider.offsetWidth);
+    }
+
+    function centerSlider() {
+        const itemWidth = getItemWidth();
+        const centerIndex = 7; // Center item (index 7 out of 0-14)
+        const offset = (centerIndex * itemWidth) - (slider.offsetWidth / 2) + (itemWidth / 2);
+        currentOffset = Math.max(0, Math.min(offset, getMaxOffset()));
+        track.style.transform = `translateX(-${currentOffset}px)`;
+    }
+
+    // Calendar functions
+    function renderCalendar() {
+        const year = calendarDate.getFullYear();
+        const month = calendarDate.getMonth();
+        
+        calMonthYear.textContent = `${monthNames[month]} ${year}`;
+        
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const daysInPrevMonth = new Date(year, month, 0).getDate();
+        
+        calendarDays.innerHTML = '';
+        
+        // Previous month days
+        for (let i = firstDay - 1; i >= 0; i--) {
+            const day = daysInPrevMonth - i;
+            const btn = createCalendarDay(day, year, month - 1, true);
+            calendarDays.appendChild(btn);
+        }
+        
+        // Current month days
+        for (let day = 1; day <= daysInMonth; day++) {
+            const btn = createCalendarDay(day, year, month, false);
+            calendarDays.appendChild(btn);
+        }
+        
+        // Next month days
+        const totalCells = firstDay + daysInMonth;
+        const remainingCells = totalCells <= 35 ? 35 - totalCells : 42 - totalCells;
+        for (let day = 1; day <= remainingCells; day++) {
+            const btn = createCalendarDay(day, year, month + 1, true);
+            calendarDays.appendChild(btn);
+        }
+    }
+
+    function createCalendarDay(day, year, month, isOtherMonth) {
+        const btn = document.createElement('button');
+        btn.className = 'cal-day';
+        btn.textContent = day;
+        
+        const date = new Date(year, month, day);
+        const dateStr = formatDate(date);
+        
+        if (isOtherMonth) btn.classList.add('other-month');
+        if (dateStr === formatDate(today)) btn.classList.add('today');
+        if (dateStr === formatDate(selectedDate)) btn.classList.add('selected');
+        
+        btn.addEventListener('click', () => selectDateFromCalendar(date));
+        return btn;
+    }
+
+    function openCalendar() {
+        calendarDate = new Date(selectedDate);
+        renderCalendar();
+        calendarDropdown.classList.add('show');
+    }
+
+    function closeCalendar() {
+        calendarDropdown.classList.remove('show');
+    }
+
+    function toggleCalendar() {
+        if (calendarDropdown.classList.contains('show')) {
+            closeCalendar();
+        } else {
+            openCalendar();
+        }
+    }
+
+    // Calendar event listeners
+    if (monthPickerBtn) {
+        monthPickerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleCalendar();
+        });
+    }
+
+    if (calPrevMonth) {
+        calPrevMonth.addEventListener('click', (e) => {
+            e.stopPropagation();
+            calendarDate.setMonth(calendarDate.getMonth() - 1);
+            renderCalendar();
+        });
+    }
+
+    if (calNextMonth) {
+        calNextMonth.addEventListener('click', (e) => {
+            e.stopPropagation();
+            calendarDate.setMonth(calendarDate.getMonth() + 1);
+            renderCalendar();
+        });
+    }
+
+    if (calTodayBtn) {
+        calTodayBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectDateFromCalendar(today);
+        });
+    }
+
+    // Close calendar when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.date-slider-compact')) {
+            closeCalendar();
+        }
+    });
+
+    // Mouse drag support
+    slider.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        slider.classList.add('dragging');
+        startX = e.pageX;
+        scrollLeft = currentOffset;
+        track.style.transition = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX;
+        const walk = startX - x;
+        currentOffset = Math.max(0, Math.min(scrollLeft + walk, getMaxOffset()));
+        track.style.transform = `translateX(-${currentOffset}px)`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            slider.classList.remove('dragging');
+            track.style.transition = 'transform 0.3s ease';
+        }
+    });
+
+    // Touch drag support
+    let touchStartX = 0;
+    let touchScrollLeft = 0;
+
+    slider.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        touchStartX = e.touches[0].pageX;
+        touchScrollLeft = currentOffset;
+        track.style.transition = 'none';
+    }, { passive: true });
+
+    slider.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const x = e.touches[0].pageX;
+        const walk = touchStartX - x;
+        currentOffset = Math.max(0, Math.min(touchScrollLeft + walk, getMaxOffset()));
+        track.style.transform = `translateX(-${currentOffset}px)`;
+    }, { passive: true });
+
+    slider.addEventListener('touchend', () => {
+        isDragging = false;
+        track.style.transition = 'transform 0.3s ease';
+    }, { passive: true });
+
+    generateDates();
+    window.addEventListener('resize', centerSlider);
+}
 
 // Initialize Filter Dropdowns
 function initFilterDropdowns() {

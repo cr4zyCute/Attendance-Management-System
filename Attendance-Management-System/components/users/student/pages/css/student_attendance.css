@@ -1084,6 +1084,44 @@ svg {
         padding: 15px;
     }
 
+    /* Compact 2x2 grid with horizontal cards - matching dashboard */
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .summary-card {
+        padding: 12px;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .summary-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        flex-shrink: 0;
+    }
+
+    .summary-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .summary-info {
+        align-items: flex-start;
+    }
+
+    .summary-value {
+        font-size: 20px;
+    }
+
+    .summary-label {
+        font-size: 10px;
+    }
+
     /* Search Filter Bar Small Screen */
     .search-filter-bar {
         gap: 8px;
@@ -1178,18 +1216,6 @@ svg {
         font-size: 15px;
     }
 
-    .summary-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-    }
-
-    .summary-card {
-        padding: 14px;
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-
     .card-header {
         padding: 16px;
         flex-direction: column;
@@ -1246,14 +1272,36 @@ svg {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 360px) {
+
+    /* Even more compact on very small screens */
     .summary-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
     }
 
     .summary-card {
-        flex-direction: row;
-        text-align: left;
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .summary-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+    }
+
+    .summary-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .summary-value {
+        font-size: 18px;
+    }
+
+    .summary-label {
+        font-size: 9px;
     }
 
     .attendance-table th:nth-child(3),

@@ -67,6 +67,25 @@ svg {
     display: block;
 }
 
+/* Dropdown Overlay for Mobile */
+.dropdown-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.dropdown-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -684,7 +703,7 @@ svg {
     }
 
     .course-stats {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
 
@@ -738,22 +757,78 @@ svg {
         height: 40px;
     }
 
+    /* Dropdown responsive - slide up from bottom */
+    .dropdown-menu {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        min-width: 100%;
+        border-radius: 20px 20px 0 0;
+        max-height: 50vh;
+        overflow-y: auto;
+        transform: translateY(100%);
+        opacity: 1;
+        visibility: hidden;
+        z-index: 1000;
+    }
+
+    .dropdown-menu.show {
+        transform: translateY(0);
+        visibility: visible;
+    }
+
+    .dropdown-header {
+        padding: 16px 20px 12px;
+        font-size: 13px;
+        position: sticky;
+        top: 0;
+        background: var(--card-bg);
+        border-radius: 20px 20px 0 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .dropdown-item {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    /* Compact 2x2 grid with horizontal cards - matching dashboard */
     .course-stats {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .stat-item {
-        padding: 14px 16px;
+        padding: 12px;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
     }
 
     .stat-icon {
         width: 40px;
         height: 40px;
+        border-radius: 10px;
+        flex-shrink: 0;
+    }
+
+    .stat-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .stat-info {
+        align-items: flex-start;
     }
 
     .stat-number {
-        font-size: 22px;
+        font-size: 20px;
+    }
+
+    .stat-text {
+        font-size: 10px;
     }
 
     .courses-grid {
@@ -799,6 +874,39 @@ svg {
         width: 36px;
         height: 36px;
         font-size: 12px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    /* Even more compact on very small screens */
+    .course-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .stat-item {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .stat-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+    }
+
+    .stat-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .stat-number {
+        font-size: 18px;
+    }
+
+    .stat-text {
+        font-size: 9px;
     }
 }
 
