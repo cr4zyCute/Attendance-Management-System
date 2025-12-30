@@ -935,7 +935,7 @@ svg {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 0 32px 0;
+    padding: 0 0 40px 0;
     min-width: 40px;
 }
 
@@ -958,7 +958,7 @@ svg {
     top: 0;
     left: 0;
     right: 0;
-    bottom: 32px;
+    bottom: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -977,7 +977,7 @@ svg {
     align-items: flex-end;
     justify-content: space-around;
     gap: 8px;
-    padding-bottom: 32px;
+    padding-bottom: 40px;
     position: relative;
     z-index: 1;
 }
@@ -990,6 +990,7 @@ svg {
     max-width: 60px;
     height: 100%;
     justify-content: flex-end;
+    position: relative;
 }
 
 .bar {
@@ -1036,15 +1037,16 @@ svg {
 }
 
 .bar-label {
-    margin-top: 10px;
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 12px;
     font-weight: 500;
     color: var(--text-secondary);
     text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
+    width: max-content;
 }
 
 /* Attendance card specific */
@@ -1598,7 +1600,7 @@ svg {
 
     .chart-y-axis {
         min-width: 30px;
-        padding: 0 0 28px 0;
+        padding: 0 0 36px 0;
     }
 
     .y-label {
@@ -1607,7 +1609,7 @@ svg {
 
     .bars-wrapper {
         gap: 4px;
-        padding-bottom: 28px;
+        padding-bottom: 36px;
     }
 
     .bar-item {
@@ -1621,7 +1623,7 @@ svg {
 
     .bar-label {
         font-size: 10px;
-        margin-top: 6px;
+        bottom: -28px;
     }
 
     .bar-value {
@@ -1713,6 +1715,11 @@ svg {
 
     .chart-y-axis {
         min-width: 26px;
+        padding: 0 0 32px 0;
+    }
+
+    .bars-wrapper {
+        padding-bottom: 32px;
     }
 
     .bar {
@@ -1721,6 +1728,7 @@ svg {
 
     .bar-label {
         font-size: 9px;
+        bottom: -24px;
     }
 }
 

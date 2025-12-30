@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Laravel backend API URL - use your computer's IP address
-    const API_BASE_URL = `http://192.168.1.3:8000`;
+    // Laravel backend API URL - adjust based on your setup
+    const API_BASE_URL = `http://localhost:8000`;
     
     // Role tab switching
     const tabBtns = document.querySelectorAll('.tab-btn');
