@@ -923,6 +923,7 @@ svg {
 .bar-chart-container {
     width: 100%;
     padding: 10px 0;
+    overflow: visible;
 }
 
 .bar-chart {
@@ -951,6 +952,7 @@ svg {
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow: visible;
 }
 
 .chart-grid {
@@ -1052,6 +1054,7 @@ svg {
 /* Attendance card specific */
 .attendance-card .card-body {
     padding: 16px 20px;
+    overflow: visible;
 }
 
 /* Chart Footer - Legend & Summary */
@@ -1468,13 +1471,36 @@ svg {
     }
 
     .schedule-item {
-        flex-wrap: wrap;
+        display: flex;
+        align-items: center;
         gap: 12px;
+        padding: 14px;
+    }
+
+    .schedule-time {
+        min-width: 50px;
+        flex-shrink: 0;
+    }
+
+    .schedule-details {
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .schedule-details .subject {
+        font-size: 14px;
+    }
+
+    .schedule-details .room {
+        font-size: 12px;
     }
 
     .schedule-status {
-        width: 100%;
-        text-align: center;
+        flex-shrink: 0;
+        padding: 5px 10px;
+        font-size: 11px;
     }
 
     /* Date slider mobile - more compact */
@@ -1594,22 +1620,26 @@ svg {
 
     /* Bar chart mobile */
     .bar-chart {
-        height: 200px;
+        height: 220px;
         gap: 8px;
     }
 
     .chart-y-axis {
         min-width: 30px;
-        padding: 0 0 36px 0;
+        padding: 0 0 45px 0;
     }
 
     .y-label {
         font-size: 9px;
     }
 
+    .chart-grid {
+        bottom: 45px;
+    }
+
     .bars-wrapper {
         gap: 4px;
-        padding-bottom: 36px;
+        padding-bottom: 45px;
     }
 
     .bar-item {
@@ -1623,7 +1653,7 @@ svg {
 
     .bar-label {
         font-size: 10px;
-        bottom: -28px;
+        bottom: -35px;
     }
 
     .bar-value {
@@ -1633,6 +1663,11 @@ svg {
 
     .attendance-card .card-body {
         padding: 12px 14px;
+        overflow: visible;
+    }
+
+    .bar-chart-container {
+        overflow: visible;
     }
 
     /* Chart footer mobile */
@@ -1710,16 +1745,20 @@ svg {
 
     /* Bar chart extra small */
     .bar-chart {
-        height: 180px;
+        height: 200px;
     }
 
     .chart-y-axis {
         min-width: 26px;
-        padding: 0 0 32px 0;
+        padding: 0 0 40px 0;
+    }
+
+    .chart-grid {
+        bottom: 40px;
     }
 
     .bars-wrapper {
-        padding-bottom: 32px;
+        padding-bottom: 40px;
     }
 
     .bar {
@@ -1728,7 +1767,7 @@ svg {
 
     .bar-label {
         font-size: 9px;
-        bottom: -24px;
+        bottom: -30px;
     }
 }
 
