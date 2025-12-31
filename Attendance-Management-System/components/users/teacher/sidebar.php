@@ -39,11 +39,17 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
             </svg>
             <span>Courses</span>
         </a>
-        <a href="#" class="nav-item <?php echo ($currentPage === 'teacher_reports') ? 'active' : ''; ?>">
+        <a href="teacher_reports.php" class="nav-item <?php echo ($currentPage === 'teacher_reports') ? 'active' : ''; ?>">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
             <span>Reports</span>
+        </a>
+        <a href="teacher_students.php" class="nav-item <?php echo ($currentPage === 'teacher_students') ? 'active' : ''; ?>">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <span>Students</span>
         </a>
     </nav>
 
