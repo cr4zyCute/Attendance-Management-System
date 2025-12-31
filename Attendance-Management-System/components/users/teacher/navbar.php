@@ -32,12 +32,12 @@ if (!isset($pageTitle)) {
                 <span class="notification-badge"></span>
             </button>
         </div>
-        <div class="user-profile">
+        <a href="teacher_profile.php" class="user-profile">
             <div class="user-avatar">JT</div>
             <div class="user-info">
                 <span class="user-name">Jane Teacher</span>
                 <span class="user-role">Teacher</span>
             </div>
-        </div>
+        </a>
     </div>
 </header>

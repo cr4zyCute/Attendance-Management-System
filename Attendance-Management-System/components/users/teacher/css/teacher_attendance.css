@@ -373,6 +373,8 @@ svg {
     padding: 8px 12px;
     border-radius: 10px;
     transition: var(--transition);
+    text-decoration: none;
+    color: inherit;
 }
 
 .user-profile:hover {

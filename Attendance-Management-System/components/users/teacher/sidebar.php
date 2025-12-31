@@ -27,11 +27,17 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
             </svg>
             <span>Dashboard</span>
         </a>
+        <a href="teacher_mark_attendance.php" class="nav-item <?php echo ($currentPage === 'teacher_mark_attendance') ? 'active' : ''; ?>">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>Mark Attendance</span>
+        </a>
         <a href="teacher_attendance.php" class="nav-item <?php echo ($currentPage === 'teacher_attendance') ? 'active' : ''; ?>">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
-            <span>Attendance</span>
+            <span>Attendance History</span>
         </a>
         <a href="teacher_courses.php" class="nav-item <?php echo ($currentPage === 'teacher_courses') ? 'active' : ''; ?>">
             <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -50,6 +56,13 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
             </svg>
             <span>Students</span>
+        </a>
+        <a href="teacher_profile.php" class="nav-item <?php echo ($currentPage === 'teacher_profile') ? 'active' : ''; ?>">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
         </a>
     </nav>
 
