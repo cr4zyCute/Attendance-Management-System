@@ -90,45 +90,47 @@
                 <div class="summary-card">
                     <div class="summary-icon total">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                         </svg>
                     </div>
                     <div class="summary-info">
-                        <span class="summary-value">50</span>
-                        <span class="summary-label">Total Classes</span>
+                        <span class="summary-value">156</span>
+                        <span class="summary-label">Total Sessions</span>
                     </div>
                 </div>
                 <div class="summary-card">
                     <div class="summary-icon present">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"></path>
                         </svg>
                     </div>
                     <div class="summary-info">
-                        <span class="summary-value">42</span>
-                        <span class="summary-label">Present</span>
+                        <span class="summary-value">1,248</span>
+                        <span class="summary-label">Students Marked</span>
                     </div>
                 </div>
                 <div class="summary-card">
-                    <div class="summary-icon absent">
+                    <div class="summary-icon classes">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                         </svg>
                     </div>
                     <div class="summary-info">
                         <span class="summary-value">5</span>
-                        <span class="summary-label">Absent</span>
+                        <span class="summary-label">Classes Handled</span>
                     </div>
                 </div>
                 <div class="summary-card">
-                    <div class="summary-icon late">
+                    <div class="summary-icon rate">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                     </div>
                     <div class="summary-info">
-                        <span class="summary-value">3</span>
-                        <span class="summary-label">Late</span>
+                        <span class="summary-value">87%</span>
+                        <span class="summary-label">Avg. Attendance</span>
                     </div>
                 </div>
             </div>
@@ -190,7 +192,7 @@
                 </div>
             </div>
 
-            <!-- Attendance Table -->
+            <!-- Attendance Records -->
             <div class="card attendance-table-card">
                 <div class="card-header">
                     <h2 class="card-title">Attendance Records</h2>
@@ -204,76 +206,398 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="attendance-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Course</th>
-                                    <th>Time</th>
-                                    <th>Student</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="date-cell">
-                                            <span class="date-day">21</span>
-                                            <span class="date-month">Dec</span>
+                    <!-- Attendance Sessions List -->
+                    <div class="attendance-sessions">
+                        <!-- Session 1 -->
+                        <div class="attendance-session">
+                            <div class="session-header" onclick="toggleSession(this)">
+                                <div class="session-date">
+                                    <span class="date-day">21</span>
+                                    <span class="date-month">Dec</span>
+                                </div>
+                                <div class="session-info">
+                                    <div class="session-course">
+                                        <span class="course-name">Mathematics</span>
+                                        <span class="course-code">MATH101</span>
+                                    </div>
+                                    <span class="session-time">08:00 AM</span>
+                                </div>
+                                <div class="session-stats">
+                                    <span class="stat present">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 12l2 2 4-4"></path>
+                                        </svg>
+                                        28
+                                    </span>
+                                    <span class="stat absent">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        2
+                                    </span>
+                                    <span class="stat late">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 6v6l4 2"></path>
+                                        </svg>
+                                        2
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="session-students">
+                                <div class="students-header">
+                                    <span>Student</span>
+                                    <span>Status</span>
+                                </div>
+                                <div class="students-list">
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">JS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Jane Student</span>
+                                                <span class="student-id">STU-2024-001</span>
+                                            </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div class="course-cell">
-                                            <span class="course-name">Mathematics</span>
-                                            <span class="course-code">MATH101</span>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">MS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Mark Student</span>
+                                                <span class="student-id">STU-2024-002</span>
+                                            </div>
                                         </div>
-                                    </td>
-                                    <td>08:00 AM</td>
-                                    <td>Jane Student</td>
-                                    <td><span class="status-badge present">Present</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="date-cell">
-                                            <span class="date-day">21</span>
-                                            <span class="date-month">Dec</span>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">PS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Paul Student</span>
+                                                <span class="student-id">STU-2024-003</span>
+                                            </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div class="course-cell">
-                                            <span class="course-name">Physics</span>
-                                            <span class="course-code">PHY201</span>
+                                        <span class="status-badge late">Late</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">AS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Anna Student</span>
+                                                <span class="student-id">STU-2024-004</span>
+                                            </div>
                                         </div>
-                                    </td>
-                                    <td>10:00 AM</td>
-                                    <td>Mark Student</td>
-                                    <td><span class="status-badge present">Present</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="date-cell">
-                                            <span class="date-day">20</span>
-                                            <span class="date-month">Dec</span>
+                                        <span class="status-badge absent">Absent</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">TS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Tom Student</span>
+                                                <span class="student-id">STU-2024-005</span>
+                                            </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div class="course-cell">
-                                            <span class="course-name">Computer Science</span>
-                                            <span class="course-code">CS301</span>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">LS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Lisa Student</span>
+                                                <span class="student-id">STU-2024-006</span>
+                                            </div>
                                         </div>
-                                    </td>
-                                    <td>01:00 PM</td>
-                                    <td>Paul Student</td>
-                                    <td><span class="status-badge late">Late</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">KS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Kevin Student</span>
+                                                <span class="student-id">STU-2024-007</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">ES</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Emma Student</span>
+                                                <span class="student-id">STU-2024-008</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge late">Late</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">DS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">David Student</span>
+                                                <span class="student-id">STU-2024-009</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge absent">Absent</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">SS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Sarah Student</span>
+                                                <span class="student-id">STU-2024-010</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                </div>
+                                <div class="students-count">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 5v14M5 12l7 7 7-7"></path>
+                                    </svg>
+                                    Scroll for more (32 students total)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 2 -->
+                        <div class="attendance-session">
+                            <div class="session-header" onclick="toggleSession(this)">
+                                <div class="session-date">
+                                    <span class="date-day">21</span>
+                                    <span class="date-month">Dec</span>
+                                </div>
+                                <div class="session-info">
+                                    <div class="session-course">
+                                        <span class="course-name">Physics</span>
+                                        <span class="course-code">PHY201</span>
+                                    </div>
+                                    <span class="session-time">10:00 AM</span>
+                                </div>
+                                <div class="session-stats">
+                                    <span class="stat present">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 12l2 2 4-4"></path>
+                                        </svg>
+                                        25
+                                    </span>
+                                    <span class="stat absent">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        3
+                                    </span>
+                                    <span class="stat late">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 6v6l4 2"></path>
+                                        </svg>
+                                        4
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="session-students">
+                                <div class="students-header">
+                                    <span>Student</span>
+                                    <span>Status</span>
+                                </div>
+                                <div class="students-list">
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">JS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Jane Student</span>
+                                                <span class="student-id">STU-2024-001</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">MS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Mark Student</span>
+                                                <span class="student-id">STU-2024-002</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge late">Late</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">LS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Lisa Student</span>
+                                                <span class="student-id">STU-2024-006</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge absent">Absent</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">KS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Kevin Student</span>
+                                                <span class="student-id">STU-2024-007</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">ES</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Emma Student</span>
+                                                <span class="student-id">STU-2024-008</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge late">Late</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">RS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Ryan Student</span>
+                                                <span class="student-id">STU-2024-011</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">OS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Olivia Student</span>
+                                                <span class="student-id">STU-2024-012</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge absent">Absent</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">NS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Noah Student</span>
+                                                <span class="student-id">STU-2024-013</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge late">Late</span>
+                                    </div>
+                                </div>
+                                <div class="students-count">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 5v14M5 12l7 7 7-7"></path>
+                                    </svg>
+                                    Scroll for more (32 students total)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Session 3 -->
+                        <div class="attendance-session">
+                            <div class="session-header" onclick="toggleSession(this)">
+                                <div class="session-date">
+                                    <span class="date-day">20</span>
+                                    <span class="date-month">Dec</span>
+                                </div>
+                                <div class="session-info">
+                                    <div class="session-course">
+                                        <span class="course-name">Computer Science</span>
+                                        <span class="course-code">CS301</span>
+                                    </div>
+                                    <span class="session-time">01:00 PM</span>
+                                </div>
+                                <div class="session-stats">
+                                    <span class="stat present">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 12l2 2 4-4"></path>
+                                        </svg>
+                                        30
+                                    </span>
+                                    <span class="stat absent">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                        1
+                                    </span>
+                                    <span class="stat late">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <path d="M12 6v6l4 2"></path>
+                                        </svg>
+                                        1
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="session-students">
+                                <div class="students-header">
+                                    <span>Student</span>
+                                    <span>Status</span>
+                                </div>
+                                <div class="students-list">
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">PS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Paul Student</span>
+                                                <span class="student-id">STU-2024-003</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge late">Late</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">JS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Jane Student</span>
+                                                <span class="student-id">STU-2024-001</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">KS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Kevin Student</span>
+                                                <span class="student-id">STU-2024-007</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge absent">Absent</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">MS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Mark Student</span>
+                                                <span class="student-id">STU-2024-002</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                    <div class="student-item">
+                                        <div class="student-info">
+                                            <div class="student-avatar">TS</div>
+                                            <div class="student-details">
+                                                <span class="student-name">Tom Student</span>
+                                                <span class="student-id">STU-2024-005</span>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge present">Present</span>
+                                    </div>
+                                </div>
+                                <div class="students-count">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 5v14M5 12l7 7 7-7"></path>
+                                    </svg>
+                                    Scroll for more (32 students total)
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Pagination -->
                     <div class="pagination">
-                        <span class="pagination-info">Showing 1-3 of 50 records</span>
+                        <span class="pagination-info">Showing 1-3 of 50 sessions</span>
                         <div class="pagination-controls">
                             <button class="pagination-btn" disabled>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

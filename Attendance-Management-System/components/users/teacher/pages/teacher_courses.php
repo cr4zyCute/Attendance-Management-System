@@ -144,15 +144,6 @@
                             <span>Mon, Wed, Fri - 8:00 AM</span>
                         </div>
                     </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Attendance</span>
-                            <span class="attendance-value">90%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 90%;"></div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="course-card">
@@ -184,15 +175,6 @@
                             <span>Tue, Thu - 10:00 AM</span>
                         </div>
                     </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Attendance</span>
-                            <span class="attendance-value">85%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 85%;"></div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="course-card">
@@ -220,15 +202,6 @@
                                 <path d="M12 6v6l4 2"></path>
                             </svg>
                             <span>Mon, Wed - 1:00 PM</span>
-                        </div>
-                    </div>
-                    <div class="course-footer">
-                        <div class="attendance-info">
-                            <span class="attendance-label">Attendance</span>
-                            <span class="attendance-value high">95%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill high" style="width: 95%;"></div>
                         </div>
                     </div>
                 </div>

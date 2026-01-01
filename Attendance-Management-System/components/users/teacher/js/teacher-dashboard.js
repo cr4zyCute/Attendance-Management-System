@@ -78,16 +78,41 @@ document.addEventListener('DOMContentLoaded', function() {
 function initFilterDropdowns() {
     const filterBtn = document.getElementById('filterBtn');
     const filterDropdown = document.getElementById('filterDropdown');
+    const datePickerBtn = document.getElementById('datePickerBtn');
+    const dateDropdown = document.getElementById('dateDropdown');
+
+    // Handle date dropdown (for attendance history page)
+    if (datePickerBtn && dateDropdown) {
+        datePickerBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            // Close filter dropdown if open
+            if (filterDropdown) filterDropdown.classList.remove('show');
+            if (filterBtn) filterBtn.classList.remove('active');
+            
+            dateDropdown.classList.toggle('show');
+            datePickerBtn.classList.toggle('active', dateDropdown.classList.contains('show'));
+            if (dateDropdown.classList.contains('show')) {
+                showDropdownOverlay();
+            } else {
+                hideDropdownOverlay();
+            }
+        });
+    }
 
     // Only handle filter dropdown here - calendar/time pickers are handled separately
     if (filterBtn && filterDropdown) {
         filterBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            closeAllDropdowns();
+            // Close date dropdown if open
+            if (dateDropdown) dateDropdown.classList.remove('show');
+            if (datePickerBtn) datePickerBtn.classList.remove('active');
+            
             filterDropdown.classList.toggle('show');
             filterBtn.classList.toggle('active', filterDropdown.classList.contains('show'));
             if (filterDropdown.classList.contains('show')) {
                 showDropdownOverlay();
+            } else {
+                hideDropdownOverlay();
             }
         });
     }
@@ -161,12 +186,7 @@ function closeAllDropdowns() {
     document.querySelectorAll('.filter-icon-btn').forEach(btn => {
         btn.classList.remove('active');
     });
-
-    const dropdownOverlay = document.querySelector('.dropdown-overlay');
-    if (dropdownOverlay) {
-        dropdownOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    hideDropdownOverlay();
 }
 
 function showDropdownOverlay() {
@@ -176,6 +196,14 @@ function showDropdownOverlay() {
             dropdownOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+    }
+}
+
+function hideDropdownOverlay() {
+    const dropdownOverlay = document.querySelector('.dropdown-overlay');
+    if (dropdownOverlay) {
+        dropdownOverlay.classList.remove('active');
+        document.body.style.overflow = '';
     }
 }
 
@@ -732,3 +760,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Toggle Attendance Session Dropdown (for Attendance History page)
+function toggleSession(headerElement) {
+    const session = headerElement.closest('.attendance-session');
+    if (session) {
+        const isExpanding = !session.classList.contains('expanded');
+        
+        // Toggle the expanded class
+        session.classList.toggle('expanded');
+        
+        // Handle animation for student items
+        if (isExpanding) {
+            const studentItems = session.querySelectorAll('.student-item');
+            studentItems.forEach((item, index) => {
+                item.style.animation = 'none';
+                item.offsetHeight; // Trigger reflow
+                item.style.animation = `slideIn 0.3s ease forwards`;
+                item.style.animationDelay = `${Math.min(index * 0.05, 0.3)}s`;
+            });
+            
+            // Check if scroll indicator should be shown
+            const studentsContainer = session.querySelector('.session-students');
+            const studentsList = session.querySelector('.students-list');
+            const scrollIndicator = session.querySelector('.students-count');
+            
+            if (studentsContainer && studentsList && scrollIndicator) {
+                // Wait for animation to complete
+                setTimeout(() => {
+                    const hasScroll = studentsList.scrollHeight > studentsContainer.clientHeight - 80;
+                    scrollIndicator.style.display = hasScroll ? 'flex' : 'none';
+                }, 100);
+            }
+        }
+    }
+}
