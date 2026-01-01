@@ -69,6 +69,17 @@ $pageTitle = 'Reports';
                         <span class="summary-label">Sessions Recorded</span>
                     </div>
                 </div>
+                <div class="summary-card">
+                    <div class="summary-icon at-risk">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <div class="summary-info">
+                        <span class="summary-value">8</span>
+                        <span class="summary-label">At-Risk Students</span>
+                    </div>
+                </div>
             </div>
 
             <!-- Reports Grid -->
@@ -332,6 +343,55 @@ $pageTitle = 'Reports';
                                 <span class="alert-percentage danger">58%</span>
                             </div>
                         </div>
+                    </div>
+                    <button class="btn btn-outline view-all-btn">
+                        <span>View All At-Risk Students</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card quick-actions-card">
+                <div class="card-header">
+                    <h2 class="card-title">Quick Actions</h2>
+                </div>
+                <div class="card-body">
+                    <div class="quick-actions-grid">
+                        <button class="quick-action-btn">
+                            <div class="action-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <span>Email At-Risk Students</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <div class="action-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                                </svg>
+                            </div>
+                            <span>Print Class Report</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <div class="action-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <span>Schedule Report</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <div class="action-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                            <span>Compare Classes</span>
+                        </button>
                     </div>
                 </div>
             </div>

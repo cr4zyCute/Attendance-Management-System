@@ -795,3 +795,672 @@ function toggleSession(headerElement) {
         }
     }
 }
+
+
+// Stat Cards Filter Functionality (for Courses page)
+function initStatCardFilters() {
+    const statCards = document.querySelectorAll('.stat-card');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const courseCards = document.querySelectorAll('.course-card');
+    
+    if (!statCards.length) return;
+    
+    statCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const filter = this.dataset.filter;
+            
+            // Update stat card selection
+            statCards.forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+            
+            // Sync with filter buttons if they exist
+            if (filterButtons.length) {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                filterButtons.forEach(btn => {
+                    const btnText = btn.textContent.toLowerCase();
+                    if ((filter === 'all' && btnText === 'all') ||
+                        (filter === 'active' && btnText === 'active') ||
+                        (filter === 'completed' && btnText === 'completed')) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+            
+            // Filter course cards
+            if (courseCards.length) {
+                courseCards.forEach(courseCard => {
+                    const status = courseCard.querySelector('.course-status');
+                    const isActive = status && status.classList.contains('active');
+                    const isCompleted = status && status.classList.contains('completed');
+                    
+                    if (filter === 'all' || filter === 'students') {
+                        courseCard.style.display = '';
+                        courseCard.style.animation = 'fadeIn 0.3s ease';
+                    } else if (filter === 'active' && isActive) {
+                        courseCard.style.display = '';
+                        courseCard.style.animation = 'fadeIn 0.3s ease';
+                    } else if (filter === 'completed' && isCompleted) {
+                        courseCard.style.display = '';
+                        courseCard.style.animation = 'fadeIn 0.3s ease';
+                    } else {
+                        courseCard.style.display = 'none';
+                    }
+                });
+            }
+        });
+    });
+    
+    // Sync filter buttons with stat cards
+    if (filterButtons.length) {
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const btnText = this.textContent.toLowerCase();
+                let filter = 'all';
+                
+                if (btnText === 'active') filter = 'active';
+                else if (btnText === 'completed') filter = 'completed';
+                
+                // Find and click the corresponding stat card
+                statCards.forEach(card => {
+                    if (card.dataset.filter === filter) {
+                        card.click();
+                    }
+                });
+            });
+        });
+    }
+}
+
+// Add fadeIn animation
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+`;
+document.head.appendChild(styleSheet);
+
+// Initialize stat card filters on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initStatCardFilters();
+});
+
+
+// Course Detail Modal Functionality
+function initCourseDetailModal() {
+    const courseCards = document.querySelectorAll('.course-card');
+    const modal = document.getElementById('courseDetailModal');
+    const closeBtn = document.getElementById('closeModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const markAttendanceBtn = document.getElementById('markAttendanceBtn');
+    const studentSearchInput = document.getElementById('studentSearchInput');
+    
+    if (!modal || !courseCards.length) return;
+
+    // Course card click handler
+    courseCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const courseName = this.dataset.name;
+            const courseCode = this.dataset.code;
+            const schedule = this.dataset.schedule;
+            const students = this.dataset.students;
+            const attendance = this.dataset.attendance;
+            const status = this.dataset.status;
+            const iconColor = this.dataset.iconColor;
+            
+            // Update modal content
+            document.getElementById('modalCourseName').textContent = courseName;
+            document.getElementById('modalCourseCode').textContent = courseCode;
+            document.getElementById('modalSchedule').textContent = schedule;
+            document.getElementById('modalStudentCount').textContent = students + ' students';
+            document.getElementById('modalAttendance').textContent = attendance;
+            document.getElementById('modalStatus').textContent = status;
+            
+            // Update icon color
+            const modalIcon = document.getElementById('modalCourseIcon');
+            if (modalIcon && iconColor) {
+                modalIcon.style.background = iconColor;
+            }
+            
+            // Copy the course icon SVG
+            const courseIcon = this.querySelector('.course-icon svg');
+            if (courseIcon && modalIcon) {
+                modalIcon.innerHTML = courseIcon.outerHTML;
+            }
+            
+            // Update status badge class
+            const statusBadge = document.getElementById('modalStatus');
+            if (statusBadge) {
+                statusBadge.classList.remove('completed');
+                if (status.toLowerCase() === 'completed') {
+                    statusBadge.classList.add('completed');
+                }
+            }
+            
+            // Show modal
+            openCourseModal();
+        });
+    });
+
+    // Close modal handlers
+    function closeCourseModal() {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    function openCourseModal() {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeCourseModal);
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeCourseModal);
+    }
+
+    // Close on overlay click
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeCourseModal();
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeCourseModal();
+        }
+    });
+
+    // Mark Attendance button
+    if (markAttendanceBtn) {
+        markAttendanceBtn.addEventListener('click', function() {
+            closeCourseModal();
+            // Redirect to mark attendance page
+            window.location.href = 'teacher_mark_attendance.php';
+        });
+    }
+
+    // Student search functionality
+    if (studentSearchInput) {
+        studentSearchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const studentItems = document.querySelectorAll('#modalStudentsList .student-item');
+            
+            studentItems.forEach(item => {
+                const name = item.querySelector('.student-name').textContent.toLowerCase();
+                const id = item.querySelector('.student-id').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || id.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+}
+
+// Initialize course detail modal on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initCourseDetailModal();
+});
+
+
+// Add Course Modal Functionality
+function initAddCourseModal() {
+    const fabBtn = document.querySelector('.fab-add');
+    const modal = document.getElementById('addCourseModal');
+    const closeBtn = document.getElementById('closeAddCourseModal');
+    const cancelBtn = document.getElementById('cancelAddCourse');
+    const form = document.getElementById('addCourseForm');
+    const regenerateBtn = document.getElementById('regenerateCode');
+    const copyBtn = document.getElementById('copyClassCode');
+    const classCodeDisplay = document.getElementById('generatedClassCode');
+    
+    if (!modal) return;
+
+    // Generate random class code
+    function generateClassCode() {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let code = '';
+        for (let i = 0; i < 6; i++) {
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return code;
+    }
+
+    // Open modal
+    function openAddCourseModal() {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        // Generate initial class code
+        if (classCodeDisplay) {
+            classCodeDisplay.textContent = generateClassCode();
+        }
+    }
+
+    // Close modal
+    function closeAddCourseModal() {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+        // Reset form
+        if (form) form.reset();
+    }
+
+    // FAB button click
+    if (fabBtn) {
+        fabBtn.addEventListener('click', openAddCourseModal);
+    }
+
+    // Close button click
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeAddCourseModal);
+    }
+
+    // Cancel button click
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', closeAddCourseModal);
+    }
+
+    // Close on overlay click
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeAddCourseModal();
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeAddCourseModal();
+        }
+    });
+
+    // Regenerate class code
+    if (regenerateBtn && classCodeDisplay) {
+        regenerateBtn.addEventListener('click', function() {
+            classCodeDisplay.textContent = generateClassCode();
+            // Add animation
+            classCodeDisplay.style.animation = 'none';
+            classCodeDisplay.offsetHeight; // Trigger reflow
+            classCodeDisplay.style.animation = 'fadeIn 0.3s ease';
+        });
+    }
+
+    // Copy class code
+    if (copyBtn && classCodeDisplay) {
+        copyBtn.addEventListener('click', function() {
+            const code = classCodeDisplay.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                // Show copied feedback
+                copyBtn.classList.add('copied');
+                copyBtn.innerHTML = `
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                `;
+                
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    copyBtn.innerHTML = `
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+                        </svg>
+                    `;
+                }, 2000);
+            });
+        });
+    }
+
+    // Form submission
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const courseName = document.getElementById('courseName').value;
+            const courseCode = document.getElementById('courseCode').value;
+            const courseTime = document.getElementById('courseTime').value;
+            const courseRoom = document.getElementById('courseRoom').value;
+            const courseDescription = document.getElementById('courseDescription').value;
+            const classCode = classCodeDisplay.textContent;
+            
+            // Get selected days
+            const selectedDays = [];
+            document.querySelectorAll('input[name="days"]:checked').forEach(checkbox => {
+                selectedDays.push(checkbox.value);
+            });
+            
+            // Get selected color
+            const selectedColor = document.querySelector('input[name="courseColor"]:checked').value;
+            
+            // Create course data object
+            const courseData = {
+                name: courseName,
+                code: courseCode,
+                days: selectedDays,
+                time: courseTime,
+                room: courseRoom,
+                description: courseDescription,
+                color: selectedColor,
+                classCode: classCode
+            };
+            
+            console.log('Course Data:', courseData);
+            
+            // Here you would typically send this to your backend API
+            // For now, show success and close modal
+            alert('Course created successfully!\nClass Code: ' + classCode);
+            closeAddCourseModal();
+        });
+    }
+}
+
+// Initialize add course modal on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initAddCourseModal();
+});
+
+
+// Course Success Modal Functions
+function showCourseSuccessModal(classCode, message) {
+    const modal = document.getElementById('courseSuccessModal');
+    const codeDisplay = document.getElementById('successClassCode');
+    const messageEl = document.getElementById('successMessage');
+    
+    if (modal) {
+        if (codeDisplay && classCode) {
+            codeDisplay.textContent = classCode;
+        }
+        if (messageEl && message) {
+            messageEl.textContent = message;
+        }
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function hideCourseSuccessModal() {
+    const modal = document.getElementById('courseSuccessModal');
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
+// Course Failed Modal Functions
+function showCourseFailedModal(message, errorDetails) {
+    const modal = document.getElementById('courseFailedModal');
+    const messageEl = document.getElementById('failedMessage');
+    const detailsEl = document.getElementById('errorDetails');
+    
+    if (modal) {
+        if (messageEl && message) {
+            messageEl.textContent = message;
+        }
+        if (detailsEl && errorDetails) {
+            detailsEl.innerHTML = `
+                <div class="error-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>${errorDetails}</span>
+                </div>
+            `;
+        }
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function hideCourseFailedModal() {
+    const modal = document.getElementById('courseFailedModal');
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
+// Initialize Success & Failed Modal Event Listeners
+function initCourseResultModals() {
+    // Success Modal
+    const successModal = document.getElementById('courseSuccessModal');
+    const successOkBtn = document.getElementById('successOkBtn');
+    
+    if (successOkBtn) {
+        successOkBtn.addEventListener('click', hideCourseSuccessModal);
+    }
+    
+    if (successModal) {
+        successModal.addEventListener('click', function(e) {
+            if (e.target === this) hideCourseSuccessModal();
+        });
+    }
+    
+    // Failed Modal
+    const failedModal = document.getElementById('courseFailedModal');
+    const failedCancelBtn = document.getElementById('failedCancelBtn');
+    const failedRetryBtn = document.getElementById('failedRetryBtn');
+    
+    if (failedCancelBtn) {
+        failedCancelBtn.addEventListener('click', hideCourseFailedModal);
+    }
+    
+    if (failedRetryBtn) {
+        failedRetryBtn.addEventListener('click', function() {
+            hideCourseFailedModal();
+            // Reopen add course modal
+            const addCourseModal = document.getElementById('addCourseModal');
+            if (addCourseModal) {
+                addCourseModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
+    
+    if (failedModal) {
+        failedModal.addEventListener('click', function(e) {
+            if (e.target === this) hideCourseFailedModal();
+        });
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (successModal && successModal.classList.contains('show')) {
+                hideCourseSuccessModal();
+            }
+            if (failedModal && failedModal.classList.contains('show')) {
+                hideCourseFailedModal();
+            }
+        }
+    });
+}
+
+// Update the Add Course form submission to use the new modals
+function updateAddCourseFormHandler() {
+    const form = document.getElementById('addCourseForm');
+    const addCourseModal = document.getElementById('addCourseModal');
+    const classCodeDisplay = document.getElementById('generatedClassCode');
+    
+    if (form) {
+        // Remove existing submit handler and add new one
+        form.removeEventListener('submit', form._submitHandler);
+        
+        form._submitHandler = function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const courseName = document.getElementById('courseName').value;
+            const courseCode = document.getElementById('courseCode').value;
+            const classCode = classCodeDisplay ? classCodeDisplay.textContent : 'ABC123';
+            
+            // Get selected days
+            const selectedDays = [];
+            document.querySelectorAll('input[name="days"]:checked').forEach(checkbox => {
+                selectedDays.push(checkbox.value);
+            });
+            
+            // Validate
+            if (!courseName || !courseCode) {
+                showCourseFailedModal('Please fill in all required fields', 'Course name and code are required');
+                return;
+            }
+            
+            if (selectedDays.length === 0) {
+                showCourseFailedModal('Please select at least one day', 'Schedule days are required');
+                return;
+            }
+            
+            // Simulate API call (replace with actual API call)
+            const simulateSuccess = true; // Change to false to test failed modal
+            
+            // Close add course modal
+            if (addCourseModal) {
+                addCourseModal.classList.remove('show');
+            }
+            
+            if (simulateSuccess) {
+                // Show success modal
+                setTimeout(() => {
+                    showCourseSuccessModal(classCode, `"${courseName}" has been created successfully.`);
+                    // Reset form
+                    form.reset();
+                }, 300);
+            } else {
+                // Show failed modal
+                setTimeout(() => {
+                    showCourseFailedModal('Failed to create course', 'Server error. Please try again later.');
+                }, 300);
+            }
+        };
+        
+        form.addEventListener('submit', form._submitHandler);
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initCourseResultModals();
+    // Update form handler after a short delay to ensure other handlers are set
+    setTimeout(updateAddCourseFormHandler, 100);
+});
+
+
+// Preview Modal Class Code Copy Functionality
+function initPreviewCodeCopy() {
+    const copyBtn = document.getElementById('copyPreviewCode');
+    const codeDisplay = document.getElementById('modalClassCode');
+    
+    if (copyBtn && codeDisplay) {
+        copyBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const code = codeDisplay.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                // Show copied feedback
+                copyBtn.classList.add('copied');
+                const copyText = copyBtn.querySelector('.copy-text');
+                const originalText = copyText ? copyText.textContent : 'Copy';
+                
+                if (copyText) copyText.textContent = 'Copied!';
+                copyBtn.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span class="copy-text">Copied!</span>
+                `;
+                
+                setTimeout(() => {
+                    copyBtn.classList.remove('copied');
+                    copyBtn.innerHTML = `
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+                        </svg>
+                        <span class="copy-text">Copy</span>
+                    `;
+                }, 2000);
+            });
+        });
+    }
+}
+
+// Update Course Detail Modal to include class code
+function updateCourseDetailModalHandler() {
+    const courseCards = document.querySelectorAll('.course-card');
+    
+    courseCards.forEach(card => {
+        // Remove existing click handler and add updated one
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+        
+        newCard.addEventListener('click', function() {
+            const courseName = this.dataset.name;
+            const courseCode = this.dataset.code;
+            const schedule = this.dataset.schedule;
+            const students = this.dataset.students;
+            const attendance = this.dataset.attendance;
+            const status = this.dataset.status;
+            const iconColor = this.dataset.iconColor;
+            const classCode = this.dataset.classCode || 'N/A';
+            
+            // Update modal content
+            document.getElementById('modalCourseName').textContent = courseName;
+            document.getElementById('modalCourseCode').textContent = courseCode;
+            document.getElementById('modalSchedule').textContent = schedule;
+            document.getElementById('modalStudentCount').textContent = students + ' students';
+            document.getElementById('modalAttendance').textContent = attendance;
+            document.getElementById('modalStatus').textContent = status;
+            
+            // Update class code
+            const classCodeEl = document.getElementById('modalClassCode');
+            if (classCodeEl) {
+                classCodeEl.textContent = classCode;
+            }
+            
+            // Update icon color
+            const modalIcon = document.getElementById('modalCourseIcon');
+            if (modalIcon && iconColor) {
+                modalIcon.style.background = iconColor;
+            }
+            
+            // Copy the course icon SVG
+            const courseIcon = this.querySelector('.course-icon svg');
+            if (courseIcon && modalIcon) {
+                modalIcon.innerHTML = courseIcon.outerHTML;
+            }
+            
+            // Update status badge class
+            const statusBadge = document.getElementById('modalStatus');
+            if (statusBadge) {
+                statusBadge.classList.remove('completed');
+                if (status.toLowerCase() === 'completed') {
+                    statusBadge.classList.add('completed');
+                }
+            }
+            
+            // Show modal
+            const modal = document.getElementById('courseDetailModal');
+            if (modal) {
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initPreviewCodeCopy();
+    // Update course detail modal handler after a short delay
+    setTimeout(updateCourseDetailModalHandler, 150);
+});

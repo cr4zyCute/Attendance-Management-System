@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/teacher_courses.css">
 </head>
 <body>
+    <div class="dropdown-overlay"></div>
     <?php include '../sidebar.php'; ?>
 
     <!-- Main Content -->
@@ -82,41 +83,88 @@
 
         <!-- Courses Content -->
         <div class="courses-content">
-            <!-- Search & Filter -->
-            <div class="search-filter-section">
-                <div class="search-box">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="M21 21l-4.35-4.35"></path>
-                    </svg>
-                    <input type="text" placeholder="Search courses..." class="search-input">
-                </div>
-                <div class="filter-buttons">
-                    <button class="filter-btn active">All</button>
-                    <button class="filter-btn">Active</button>
-                    <button class="filter-btn">Completed</button>
-                </div>
-            </div>
-
             <!-- Course Stats -->
             <div class="course-stats">
                 <div class="stat-item">
-                    <span class="stat-number">6</span>
-                    <span class="stat-text">Assigned Courses</span>
+                    <div class="stat-icon assigned">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">6</span>
+                        <span class="stat-text">Assigned Courses</span>
+                    </div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">5</span>
-                    <span class="stat-text">Active</span>
+                    <div class="stat-icon active">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">5</span>
+                        <span class="stat-text">Active</span>
+                    </div>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">1</span>
-                    <span class="stat-text">Completed</span>
+                    <div class="stat-icon completed">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">1</span>
+                        <span class="stat-text">Completed</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon students">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 010 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number">142</span>
+                        <span class="stat-text">Total Students</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="search-filter-bar">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search courses...">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                </div>
+                <div class="filter-actions">
+                    <div class="filter-icon-btn" id="filterBtn" title="Filter">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        <div class="dropdown-menu filter-dropdown" id="filterDropdown">
+                            <div class="dropdown-header">Filter Courses</div>
+                            <div class="dropdown-item active" data-filter="all">All Courses</div>
+                            <div class="dropdown-item" data-filter="active">Active</div>
+                            <div class="dropdown-item" data-filter="completed">Completed</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Courses Grid -->
             <div class="courses-grid">
-                <div class="course-card">
+                <div class="course-card" data-course="math" data-name="Mathematics" data-code="MATH101" data-schedule="Mon, Wed, Fri - 8:00 AM" data-students="32" data-attendance="92%" data-status="Active" data-icon-color="#3b82f6" data-class-code="MTH101">
                     <div class="course-header">
                         <div class="course-icon math">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -146,7 +194,7 @@
                     </div>
                 </div>
 
-                <div class="course-card">
+                <div class="course-card" data-course="physics" data-name="Physics" data-code="PHY201" data-schedule="Tue, Thu - 10:00 AM" data-students="28" data-attendance="88%" data-status="Active" data-icon-color="#8b5cf6" data-class-code="PHY201">
                     <div class="course-header">
                         <div class="course-icon physics">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -177,7 +225,7 @@
                     </div>
                 </div>
 
-                <div class="course-card">
+                <div class="course-card" data-course="cs" data-name="Computer Science" data-code="CS301" data-schedule="Mon, Wed - 1:00 PM" data-students="35" data-attendance="95%" data-status="Active" data-icon-color="#84cc16" data-class-code="CS3010">
                     <div class="course-header">
                         <div class="course-icon cs">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -214,6 +262,18 @@
             </button>
         </div>
     </main>
+
+    <!-- Include Course Detail Modal -->
+    <?php include '../modals/courses_modal/course_detail_modal.php'; ?>
+
+    <!-- Include Add Course Modal -->
+    <?php include '../modals/courses_modal/add_courses_modal.php'; ?>
+
+    <!-- Include Success Modal -->
+    <?php include '../modals/courses_modal/success_modal.php'; ?>
+
+    <!-- Include Failed Modal -->
+    <?php include '../modals/courses_modal/failed_modal.php'; ?>
 
     <script src="../js/teacher-dashboard.js"></script>
 </body>
