@@ -223,6 +223,110 @@ svg {
     border: 2px solid #fff;
 }
 
+/* Notification Dropdown */
+.notification-dropdown {
+    position: absolute;
+    top: 54px;
+    right: 0;
+    width: 340px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    display: none;
+    z-index: 200;
+    overflow: hidden;
+}
+
+.notification-dropdown.show {
+    display: block;
+}
+
+.notification-dropdown .dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notification-dropdown .dropdown-header .title {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.notification-dropdown .dropdown-header .status-pill {
+    background: var(--primary-light);
+    color: var(--primary-hover);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.notification-dropdown .notification-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.notification-dropdown .notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-dropdown .notification-item:hover {
+    background: var(--bg-color);
+}
+
+.notification-dropdown .notification-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notification-dropdown .notification-icon.info {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--info-color);
+}
+
+.notification-dropdown .notification-icon.success {
+    background: rgba(132, 204, 22, 0.15);
+    color: var(--primary-color);
+}
+
+.notification-dropdown .notification-icon.warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--secondary-color);
+}
+
+.notification-dropdown .notification-icon.danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger-color);
+}
+
+.notification-dropdown .notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.notification-dropdown .notification-text {
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.notification-dropdown .notification-time {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
 .user-profile {
     display: flex;
     align-items: center;
@@ -664,6 +768,16 @@ svg {
         display: none;
     }
 
+    .notification-dropdown {
+        position: fixed;
+        top: 60px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
     .summary-row {
         gap: 10px;
     }
@@ -687,6 +801,16 @@ svg {
 @media (max-width: 576px) {
     .students-content {
         padding: 15px;
+    }
+
+    .notification-dropdown {
+        position: fixed;
+        top: 60px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-height: 70vh;
+        overflow-y: auto;
     }
 
     .search-filter-bar {
